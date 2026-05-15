@@ -15,58 +15,36 @@ const Footer = () => {
 
   return (
     <footer className="bg-primary text-white">
-      {/* Newsletter Section */}
-      <div className="border-b border-white/10">
-        <div className="container mx-auto px-4 py-12">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h3 className="text-2xl md:text-3xl font-heading font-bold mb-2">
-                Newsletter To Get Updated
-              </h3>
-              <p className="text-xl text-white/80">The Latest News</p>
-            </div>
-            <div className="flex gap-3 w-full md:w-auto">
-              <input
-                type="email"
-                placeholder="Enter your Email"
-                className="px-6 py-3 rounded-full bg-primary-light text-white placeholder:text-white/60 border border-white/20 focus:outline-none focus:ring-2 focus:ring-accent flex-1 md:w-80"
-              />
-              <Button className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full px-8">
-                Subscribe Now →
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
-          {/* Brand */}
-          <div>
-            <div className="mb-4">
-              <img 
-                src="/src/assets/logo.png" 
-                alt="npro Consultants" 
-                className="h-12 w-auto object-contain brightness-0 invert"
+      {/* Main Footer Content */}
+      <div className="w-full max-w-7xl mx-auto px-6 lg:px-8 py-10 sm:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          {/* Brand Section */}
+          <div className="sm:col-span-2 lg:col-span-1">
+            <div className="mb-4 flex justify-center sm:justify-start">
+              <img
+                src="/src/assets/logo.png"
+                alt="Enpro Consultants"
+                className="h-10 sm:h-12 w-auto object-contain brightness-0 invert"
               />
             </div>
-            <p className="text-white/80 mb-4">
+            <p className="text-white/80 text-sm sm:text-base mb-4 text-center sm:text-left leading-relaxed">
               Building strong foundations for the future with expert structural
               engineering solutions.
             </p>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="font-heading font-semibold text-lg mb-4">
+          <div className="text-center sm:text-left">
+            <h4 className="font-heading font-semibold text-lg mb-4 sm:mb-6">
               Quick Links
             </h4>
-            <ul className="space-y-2">
-              {["Home", "About", "Services", "Projects"].map((link) => (
+            <ul className="space-y-2 sm:space-y-3">
+              {["Home","Features", "About Us", "Services", "Contact Us"].map((link) => (
                 <li key={link}>
                   <button
                     onClick={() => scrollToSection(link.toLowerCase())}
-                    className="text-white/80 hover:text-accent transition-colors"
+                    className="text-white/80 hover:text-[#bf1e2e] transition-colors duration-200 text-sm sm:text-base"
                   >
                     {link}
                   </button>
@@ -76,36 +54,47 @@ const Footer = () => {
           </div>
 
           {/* Services */}
-          <div>
-            <h4 className="font-heading font-semibold text-lg mb-4">Services</h4>
-            <ul className="space-y-2 text-white/80">
-              <li>Civil & Structural Design</li>
-              <li>Steel Fabrication</li>
-              <li>Bridge Engineering</li>
-              <li>Project Consultation</li>
+          <div className="text-center sm:text-left">
+            <h4 className="font-heading font-semibold text-lg mb-4 sm:mb-6">
+              Services
+            </h4>
+            <ul className="space-y-2 sm:space-y-3 text-white/80 text-sm sm:text-base">
+              <li className="hover:text-white transition-colors duration-200">
+                Civil & Structural Design
+              </li>
+              <li className="hover:text-white transition-colors duration-200">
+                Steel Fabrication
+              </li>
+              <li className="hover:text-white transition-colors duration-200">
+                Bridge Engineering
+              </li>
+              <li className="hover:text-white transition-colors duration-200">
+                Project Consultation
+              </li>
             </ul>
           </div>
 
           {/* Contact & Social */}
-          <div>
-            <h4 className="font-heading font-semibold text-lg mb-4">
+          <div className="text-center sm:text-left sm:col-span-2 lg:col-span-1">
+            <h4 className="font-heading font-semibold text-lg mb-4 sm:mb-6">
               Connect With Us
             </h4>
-            <div className="flex space-x-4 mb-4">
+            <div className="flex justify-center sm:justify-start space-x-3 sm:space-x-4 mb-4 sm:mb-6">
               <a
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-accent transition-colors"
+                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#bf1e2e] transition-colors duration-200"
                 aria-label="Visit our LinkedIn page"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a
+              {/* Uncomment if needed */}
+              {/* <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-accent transition-colors"
+                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#bf1e2e] transition-colors duration-200"
                 aria-label="Visit our Facebook page"
               >
                 <Facebook className="w-5 h-5" />
@@ -114,26 +103,21 @@ const Footer = () => {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-accent transition-colors"
+                className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-[#bf1e2e] transition-colors duration-200"
                 aria-label="Visit our Instagram page"
               >
                 <Instagram className="w-5 h-5" />
-              </a>
+              </a> */}
             </div>
-            <Button
-              variant="heroOutline"
-              size="sm"
-              onClick={scrollToTop}
-              className="mt-4"
-            >
-              <ArrowUp className="w-4 h-4 mr-2" />
-              Back to Top
-            </Button>
           </div>
         </div>
 
-        <div className="border-t border-white/20 mt-8 pt-8 text-center text-white/60">
-          <p>&copy; {new Date().getFullYear()} npro Consultants. All rights reserved.</p>
+        {/* Copyright */}
+        <div className="border-t border-white/20 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-white/60 text-sm sm:text-base">
+          <p>
+            &copy; {new Date().getFullYear()} Enpro Consultants. All rights
+            reserved.
+          </p>
         </div>
       </div>
     </footer>

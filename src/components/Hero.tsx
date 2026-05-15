@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-construction.jpg";
+import heroImage from "@/assets/hero-construction.jpeg";
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -11,7 +11,6 @@ const Hero = () => {
 
   return (
     <section
-      id="hero"
       className="relative h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Background Image with Parallax */}
@@ -26,21 +25,21 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center text-white">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 animate-fade-in">
-          Building Strong Foundations
-          <br />
-          for the Future
-        </h1>
-        <p className="text-lg md:text-xl lg:text-2xl mb-8 max-w-3xl mx-auto animate-fade-in opacity-90">
+      <div className="relative z-10 max-w-5xl mx-auto px-3 sm:px-4 text-center text-white">
+       <div className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold mb-6 sm:mb-8 animate-fade-in ">
+  <h1 className="mb-4 sm:mb-8 leading-tight">Building Strong</h1> 
+  <h1 className="mb-4 sm:mb-8 leading-tight">Foundations for the Future</h1>  
+</div>
+        <p className="text-sm xs:text-base sm:text-lg md:text-xl xl:text-2xl mb-6 sm:mb-8 max-w-3xl mx-auto animate-fade-in opacity-90 leading-relaxed px-2">
           Expert structural engineers delivering safe and innovative solutions
           for modern infrastructure
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center animate-slide-up px-2">
           <Button
             variant="hero"
             size="lg"
-            onClick={() => scrollToSection("services")}
+            style={{ backgroundColor: "#bf1e2e" }}
+            onClick={() => scrollToSection("service")}
           >
             Our Services
           </Button>
@@ -49,16 +48,21 @@ const Hero = () => {
             size="lg"
             onClick={() => scrollToSection("contact")}
           >
-            Get a Quote
+            Contact Us
           </Button>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white rounded-full flex items-start justify-center p-2">
-          <div className="w-1 h-3 bg-white rounded-full"></div>
-        </div>
+      {/* Scroll Indicator - Section Centered */}
+      <div className="absolute bottom-8 inset-x-0 flex justify-center z-20">
+        <button 
+          onClick={() => scrollToSection("features")}
+          className="animate-bounce cursor-pointer group"
+        >
+          <div className="w-6 h-10 border-2 border-white/50 group-hover:border-white rounded-full flex items-start justify-center p-2 transition-colors">
+            <div className="w-1 h-3 bg-white rounded-full"></div>
+          </div>
+        </button>
       </div>
     </section>
   );

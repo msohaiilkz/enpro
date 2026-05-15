@@ -19,7 +19,7 @@ All colors MUST be HSL.
 
     --primary: 0 0% 10%;
     --primary-foreground: 0 0% 100%;
-    
+
     --primary-dark: 0 0% 5%;
     --primary-light: 0 0% 20%;
 
@@ -35,20 +35,28 @@ All colors MUST be HSL.
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 35 20% 85%;
+    --border: 2 75% 43%;
     --input: 35 20% 90%;
-    --ring: 25 95% 53%;
+    --ring: 2 75% 43%;
 
     --radius: 1rem;
-    
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 10% / 0.7), hsl(0 0% 5% / 0.5));
-    --gradient-overlay: linear-gradient(to bottom, hsl(35 30% 94% / 0.1), hsl(0 0% 10% / 0.6));
-    
+
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(0 0% 10% / 0.7),
+      hsl(0 0% 5% / 0.5)
+    );
+    --gradient-overlay: linear-gradient(
+      to bottom,
+      hsl(35 30% 94% / 0.1),
+      hsl(0 0% 10% / 0.6)
+    );
+
     --shadow-sm: 0 1px 2px 0 hsl(221 39% 11% / 0.05);
     --shadow-md: 0 4px 6px -1px hsl(221 39% 11% / 0.1);
     --shadow-lg: 0 10px 15px -3px hsl(221 39% 11% / 0.1);
     --shadow-xl: 0 20px 25px -5px hsl(221 39% 11% / 0.1);
-    
+
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
@@ -73,7 +81,7 @@ All colors MUST be HSL.
 
     --primary: 0 65% 50%;
     --primary-foreground: 0 0% 100%;
-    
+
     --primary-dark: 0 65% 35%;
     --primary-light: 0 65% 60%;
 
@@ -92,10 +100,18 @@ All colors MUST be HSL.
     --border: 220 13% 20%;
     --input: 220 13% 20%;
     --ring: 0 65% 50%;
-    
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 20% / 0.95), hsl(0 65% 35% / 0.95));
-    --gradient-overlay: linear-gradient(180deg, transparent, hsl(0 0% 20% / 0.9));
-    
+
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(0 0% 20% / 0.95),
+      hsl(0 65% 35% / 0.95)
+    );
+    --gradient-overlay: linear-gradient(
+      180deg,
+      transparent,
+      hsl(0 0% 20% / 0.9)
+    );
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -115,8 +131,13 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground font-sans;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-heading;
   }
 }
@@ -125,15 +146,15 @@ All colors MUST be HSL.
   .animate-fade-in {
     animation: fadeIn 0.6s ease-out forwards;
   }
-  
+
   .animate-slide-up {
     animation: slideUp 0.6s ease-out forwards;
   }
-  
+
   .animate-scale-in {
     animation: scaleIn 0.5s ease-out forwards;
   }
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -144,7 +165,7 @@ All colors MUST be HSL.
       transform: translateY(0);
     }
   }
-  
+
   @keyframes slideUp {
     from {
       opacity: 0;
@@ -155,7 +176,7 @@ All colors MUST be HSL.
       transform: translateY(0);
     }
   }
-  
+
   @keyframes scaleIn {
     from {
       opacity: 0;
@@ -166,20 +187,38 @@ All colors MUST be HSL.
       transform: scale(1);
     }
   }
-  
+
   .parallax {
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
   }
-  
+
   .hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
-  
+
   .hover-lift:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-xl);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .snap-y-mandatory {
+    scroll-snap-type: y mandatory;
+  }
+
+  .snap-start {
+    scroll-snap-align: start;
   }
 }

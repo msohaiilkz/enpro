@@ -58,7 +58,7 @@ const Counters = () => {
     }, [isVisible, end]);
 
     return (
-      <span className="text-4xl md:text-5xl font-heading font-bold text-primary">
+      <span className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white">
         {count}
         {suffix}
       </span>
@@ -66,9 +66,9 @@ const Counters = () => {
   };
 
   return (
-    <section ref={sectionRef} className="py-20 bg-primary text-white">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+    <section ref={sectionRef} className="py-12 sm:py-20 bg-primary text-white">
+      <div className="container mx-auto px-3 sm:px-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {counters.map((counter, index) => {
             const Icon = counter.icon;
             return (
@@ -77,11 +77,11 @@ const Counters = () => {
                 className="text-center animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="flex justify-center mb-4">
-                  <Icon className="w-12 h-12 text-accent" />
+                <div className="flex justify-center mb-3 sm:mb-4">
+                  <Icon className="w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 text-[#bf1e2e]" />
                 </div>
-                <AnimatedCounter end={counter.value} suffix={counter.suffix} />
-                <p className="mt-2 text-white/80 font-medium">{counter.label}</p>
+                <AnimatedCounter end={counter.value} suffix={counter.suffix}/>
+                <p className="mt-1.5 sm:mt-2 text-white/80 font-medium text-xs sm:text-sm">{counter.label}</p>
               </div>
             );
           })}
