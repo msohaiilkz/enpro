@@ -18,7 +18,7 @@ const Footer = () => {
 
       {/* Main Footer Content */}
       <div className="w-full max-w-7xl mx-auto px-6 lg:px-8 py-10 sm:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-8">
           {/* Brand Section */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="mb-4 flex justify-center sm:justify-start">
@@ -35,7 +35,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="text-center sm:text-left">
+          <div className="text-center sm:text-left ">
             <h4 className="font-heading font-semibold text-lg mb-4 sm:mb-6">
               Quick Links
             </h4>
@@ -54,23 +54,30 @@ const Footer = () => {
           </div>
 
           {/* Services */}
-          <div className="text-center sm:text-left">
+          <div className="text-center sm:text-left lg:col-span-2">
             <h4 className="font-heading font-semibold text-lg mb-4 sm:mb-6">
               Services
             </h4>
             <ul className="space-y-2 sm:space-y-3 text-white/80 text-sm sm:text-base">
               <li className="hover:text-white transition-colors duration-200">
-                Civil & Structural Design
+                Conceptual and Preliminary Design
               </li>
               <li className="hover:text-white transition-colors duration-200">
-                Steel Fabrication
+                Design Review and Value Engineering
               </li>
               <li className="hover:text-white transition-colors duration-200">
-                Bridge Engineering
+                Project and Contract Management Services
               </li>
               <li className="hover:text-white transition-colors duration-200">
-                Project Consultation
+                Environmental and Social Services
               </li>
+              <li className="hover:text-white transition-colors duration-200">
+                Virtual and Digital Delivery
+              </li>
+              <li className="hover:text-white transition-colors duration-200">
+                 Construction Support Services
+              </li>
+
             </ul>
           </div>
 

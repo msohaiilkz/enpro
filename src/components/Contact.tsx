@@ -104,11 +104,12 @@ const Contact = () => {
                   className="appearance-none w-full px-4 sm:px-6 py-3 sm:py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#bf1e2e]/20 focus:border-[#bf1e2e] transition-all duration-300 pl-10 sm:pl-12 cursor-pointer text-sm sm:text-base"
                 >
                   <option value="">Select Service</option>
-                  <option value="real-estate"> Civil & Structural Design</option>
-                  <option value="steel-fabrication">Steel Fabrication</option>
-                  <option value="bridge">Bridge Engineering</option>
-                  <option value="consultation">Project Consultation</option>
-                  {/* <option value="renovation">Renovation</option> */}
+                  <option value="real-estate"> Conceptual and Preliminary Design</option>
+                  <option value="steel-fabrication">Design Review and Value Engineering</option>
+                  <option value="bridge">Project and Contract Management Services</option>
+                  <option value="consultation">Environmental and Social Services</option>
+                  <option value="digital-delivery">Virtual and Digital Delivery</option>
+                  <option value="construction-support">Construction Support Services</option>
                 </select>
                 <div className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2">
                   <ChevronDown

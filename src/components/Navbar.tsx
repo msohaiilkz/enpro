@@ -81,7 +81,7 @@ const SidebarNav = () => {
         </div>
 
         {/* Tagline Container */}
-        <div className="w-full flex flex-col items-center">
+        <div className="w-full flex flex-col items-center bg-[#9e1925] rounded-xl py-3 px-4">
           {/* Tagline - Now White and Non-Italic */}
           <p className="text-white text-sm font-bold tracking-widest text-center opacity-80 uppercase">
             Partners in Performance
@@ -150,7 +150,7 @@ const SidebarNav = () => {
             </button>
 
             {/* Tagline */}
-            <p className="text-[#BE1E2D] text-xs sm:text-base font-bold tracking-widest italic mt-2 drop-shadow-sm">
+            <p className="text-[#BE1E2D]  p-3 text-xs sm:text-base font-bold tracking-widest italic mt-2 drop-shadow-sm">
               Partners in Performance
             </p>
           </div>

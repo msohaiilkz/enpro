@@ -1,43 +1,30 @@
-import { Lightbulb, ClipboardCheck, Briefcase, Leaf, Monitor, HardHat } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { HardHat, Wrench, ShieldCheck, BadgeCheck } from "lucide-react";
 
 const Services = () => {
   const features = [
     {
-      icon: Lightbulb,
-      title: "Conceptual and Preliminary Design",
-      description:
-        "Transforming project visions into technically sound concepts through feasibility studies, preliminary structural schemes, and early-stage engineering assessments.",
-    },
-    {
-      icon: ClipboardCheck,
-      title: "Design Review and Value Engineering",
-      description:
-        "Independent design reviews and value engineering analyses to optimize structural performance, reduce costs, and ensure compliance with international standards.",
-    },
-    {
-      icon: Briefcase,
-      title: "Project and Contract Management Services",
-      description:
-        "End-to-end project and contract management ensuring scope control, schedule adherence, cost governance, and transparent reporting throughout project lifecycle.",
-    },
-    {
-      icon: Leaf,
-      title: "Environmental and Social Services",
-      description:
-        "Integrating environmental impact assessments and social safeguard frameworks to deliver responsible, sustainable, and community-sensitive infrastructure solutions.",
-    },
-    {
-      icon: Monitor,
-      title: "Virtual and Digital Delivery",
-      description:
-        "Leveraging BIM, digital twins, and advanced simulation tools to enhance design accuracy, collaboration, and project delivery efficiency.",
-    },
-    {
       icon: HardHat,
-      title: "Construction Support Services",
+      title: "Engineering Excellence & Quality",
       description:
-        "On-site and remote construction support including site supervision, technical queries, inspection, and quality assurance to ensure faithful design implementation.",
+        "Delivery of technically robust, code-compliant designs supported by advanced analysis, rigorous quality assurance, and global best practices to protect asset integrity and reduce risk.",
+    },
+    {
+      icon: Wrench,
+      title: "Disciplined Delivery & Governance",
+      description:
+        "Our integrated delivery model ensures control over scope, cost, schedule, and technical compliance, enabling predictable outcomes for complex projects.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Sustainability & Value Creation",
+      description:
+        "Lifecycle-driven engineering solutions that enhance durability, resilience, and future ready infrastructure while meeting environmental and social obligations.",
+    },
+    {
+      icon: BadgeCheck,
+      title: "Integrity, Ethics & Compliance",
+      description:
+        "Strict adherence to anti-corruption, integrity, and compliance requirements, ensuring transparent, accountable, and ethical project delivery.",
     },
   ];
 
@@ -64,7 +51,7 @@ const Services = () => {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 w-full mx-auto max-w-5xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full mx-auto max-w-4xl">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
