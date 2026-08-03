@@ -8,6 +8,9 @@ import imgProject from "@/assets/service-project-management.jpg";
 import imgEnvironmental from "@/assets/service-environmental-social.jpg";
 import imgDigital from "@/assets/service-digital-bim.jpg";
 
+// Photography used inside the detail pages
+import photoStructuralFrame from "@/assets/photo-structural-frame.jpg";
+
 import iconBuildings from "@/assets/icons/cat-buildings.png";
 import iconInfrastructure from "@/assets/icons/cat-infrastructure.png";
 import iconIndustrial from "@/assets/icons/cat-industrial.png";
@@ -24,6 +27,8 @@ export interface ServiceCategory {
 
 export interface ServiceDetail {
   tagline: string;
+  /** Photograph shown alongside the How We Work section */
+  photo?: string;
   whatWeDo: {
     intro: string;
     categories: ServiceCategory[];
@@ -54,6 +59,7 @@ export const SERVICES: Service[] = [
     detail: {
       tagline:
         "We design and engineer safe, efficient and resilient structural solutions across a wide range of structures and structural systems.",
+      photo: photoStructuralFrame,
       whatWeDo: {
         intro:
           "We engineer structures across their full lifecycle from new-build design to assessment, strengthening and rehabilitation.",
@@ -196,18 +202,18 @@ export const SERVICES: Service[] = [
     image: imgDesignReview,
   },
   {
-    slug: "construction-support-services",
-    title: "Construction Support Services",
-    description:
-      "Providing technical guidance, shop drawing reviews, and engineering support throughout successful project execution.",
-    image: imgConstruction,
-  },
-  {
     slug: "project-contract-management",
     title: "Project & Contract Management Services",
     description:
       "Managing project delivery through effective controls, contract administration, coordination, and governance practices.",
     image: imgProject,
+  },
+  {
+    slug: "construction-support-services",
+    title: "Construction Support Services",
+    description:
+      "Providing technical guidance, shop drawing reviews, and engineering support throughout successful project execution.",
+    image: imgConstruction,
   },
   {
     slug: "environmental-social-advisory",

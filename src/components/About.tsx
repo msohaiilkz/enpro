@@ -56,7 +56,7 @@ const About = () => {
             </motion.h2>
 
             {/* Justified on desktop, left-aligned on mobile to avoid ragged word spacing */}
-            <motion.p variants={fadeUp} className="text-gray-600 mb-4 sm:mb-6 text-fluid-lead text-justify hyphens-auto">
+            <motion.p variants={fadeUp} className="text-gray-600 mb-4 sm:mb-6 text-fluid-lead text-justify">
               We believe exceptional engineering goes beyond technical design.
               Every project is guided by precision, practicality, and a
               commitment to delivering resilient, efficient, and sustainable
@@ -98,8 +98,8 @@ const About = () => {
           </motion.div>
         </div>
 
-        {/* Decorative Shape */}
-        <div className="absolute bottom-10 right-10 hidden md:block opacity-80">
+        {/* Decorative Shape - kept clear of the floating back-to-top button */}
+        <div className="absolute bottom-24 right-32 hidden lg:block opacity-80 pointer-events-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="90"

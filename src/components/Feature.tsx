@@ -17,7 +17,7 @@ const FeaturedServices = () => {
 
   return (
     <section
-      className="relative min-h-[100dvh] flex flex-col items-center justify-center py-12 sm:py-14 lg:py-16 pb-24 sm:pb-28
+      className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-8 sm:pt-10 lg:pt-12 pb-36 sm:pb-40
                  bg-gradient-to-b from-[#fbe5e7] via-white to-white overflow-hidden"
     >
       {/* Diagonal hairlines - a different texture to the section above */}
@@ -37,7 +37,7 @@ const FeaturedServices = () => {
       <div className="relative w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
-          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3 mb-6 sm:mb-8"
+          className="mb-6 sm:mb-8"
           variants={stagger(0.12)}
           {...revealOnce}
         >
@@ -57,14 +57,6 @@ const FeaturedServices = () => {
               Our <span className="text-[#bf1e2e]">Services</span>
             </motion.h2>
           </div>
-
-          <motion.p
-            variants={fadeUp}
-            className="max-w-md text-gray-500 text-sm sm:text-base leading-relaxed text-center lg:text-right"
-          >
-            Six integrated disciplines, delivered by one accountable
-            engineering team.
-          </motion.p>
         </motion.div>
 
         {/* Service Grid */}
@@ -120,7 +112,7 @@ const FeaturedServices = () => {
                   {/* Kept for search engines and screen readers only */}
                   <h3 className="sr-only">{service.title}</h3>
 
-                  <p className="text-gray-500 text-fluid-body text-justify hyphens-auto flex-grow">
+                  <p className="text-gray-500 text-fluid-body text-left flex-grow">
                     {service.description}
                   </p>
 
@@ -172,7 +164,7 @@ const FeaturedServices = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 inset-x-0 flex justify-center">
+      <div className="absolute bottom-3 inset-x-0 flex justify-center">
         <button
           onClick={() => {
             const element = document.getElementById("contact");

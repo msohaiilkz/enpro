@@ -1,7 +1,17 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Mail } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Handshake,
+  Layers,
+  Lightbulb,
+  Mail,
+  Search,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 
 import TopNavbar from "@/components/TopNavbar";
 import Footer from "@/components/Footer";
@@ -15,18 +25,21 @@ import { fadeUp, scaleIn, stagger, revealOnce } from "@/lib/motion";
 const BUILT_TO_EVOLVE = [
   {
     number: "01",
+    icon: Layers,
     title: "Experience That Builds Forward",
     description:
       "Our experience is not simply a legacy to preserve. We share it, build upon it, and turn it into collective capability for what comes next.",
   },
   {
     number: "02",
+    icon: Users,
     title: "Developing Those Who Lead Next",
     description:
       "We believe the future of Enpro lies in people. We create an environment where professionals grow, take ownership, and develop into the leaders who will shape what follows.",
   },
   {
     number: "03",
+    icon: TrendingUp,
     title: "Growing Through Capability",
     description:
       "We are building a multidisciplinary platform that brings together expertise, partnerships, and new opportunities, creating the capacity to grow across disciplines, sectors, and markets.",
@@ -36,24 +49,28 @@ const BUILT_TO_EVOLVE = [
 const OUR_APPROACH = [
   {
     number: "01",
+    icon: Search,
     title: "Understand",
     description:
       "We begin by understanding the project, its context, constraints, and what matters most to our clients.",
   },
   {
     number: "02",
+    icon: Lightbulb,
     title: "Think",
     description:
       "We combine engineering judgment, practical thinking, and multidisciplinary insight to develop considered solutions.",
   },
   {
     number: "03",
+    icon: CheckCircle2,
     title: "Deliver",
     description:
       "We stay focused on execution, responsiveness, quality, and delivering what we commit to.",
   },
   {
     number: "04",
+    icon: Handshake,
     title: "Build Trust",
     description:
       "We value transparency, accountability, and relationships built to extend beyond individual projects.",
@@ -109,18 +126,9 @@ const AboutUs = () => {
                 variants={stagger(0.1)}
                 {...revealOnce}
               >
-                <motion.span
-                  variants={fadeUp}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#bf1e2e]/20 bg-[#fbe5e7] px-4 py-1.5
-                             text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#bf1e2e]"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                  01 — About Enpro
-                </motion.span>
-
                 <motion.h1
                   variants={fadeUp}
-                  className="mt-5 text-fluid-h2 font-bold text-[#1C1C1C]"
+                  className="text-fluid-h2 font-bold text-[#1C1C1C]"
                 >
                   About <span className="text-[#bf1e2e]">Enpro</span>
                 </motion.h1>
@@ -132,7 +140,7 @@ const AboutUs = () => {
 
                 <motion.div
                   variants={stagger(0.08)}
-                  className="space-y-5 text-gray-600 text-fluid-lead text-justify hyphens-auto"
+                  className="space-y-5 text-gray-600 text-fluid-lead text-justify"
                 >
                   <motion.p variants={fadeUp}>
                     Enpro Consultants was founded on more than two decades of
@@ -188,18 +196,9 @@ const AboutUs = () => {
               variants={stagger(0.1)}
               {...revealOnce}
             >
-              <motion.span
-                variants={fadeUp}
-                className="inline-flex items-center gap-2 rounded-full border border-[#bf1e2e]/20 bg-white/70 px-4 py-1.5
-                           text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#bf1e2e] backdrop-blur-sm"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                02 — Built to Evolve
-              </motion.span>
-
               <motion.h2
                 variants={fadeUp}
-                className="mt-5 text-fluid-h2 font-bold text-[#1C1C1C]"
+                className="text-fluid-h2 font-bold text-[#1C1C1C]"
               >
                 Built to <span className="text-[#bf1e2e]">Evolve</span>
               </motion.h2>
@@ -234,16 +233,17 @@ const AboutUs = () => {
                     aria-hidden
                   />
                   <span
-                    className="text-4xl sm:text-5xl font-bold text-[#bf1e2e]/15 leading-none mb-4
-                               group-hover:text-[#bf1e2e]/35 transition-colors duration-500"
+                    className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#fbe5e7]
+                               group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-[#bf1e2e]/20
+                               transition-all duration-500"
                     aria-hidden
                   >
-                    {item.number}
+                    <item.icon className="h-7 w-7 text-[#bf1e2e]" strokeWidth={1.5} />
                   </span>
                   <h3 className="text-fluid-h3 font-bold text-[#1C1C1C] mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-gray-600 text-fluid-body text-justify hyphens-auto flex-grow">
+                  <p className="text-gray-600 text-fluid-body flex-grow">
                     {item.description}
                   </p>
                 </motion.article>
@@ -278,18 +278,9 @@ const AboutUs = () => {
               variants={stagger(0.1)}
               {...revealOnce}
             >
-              <motion.span
-                variants={fadeUp}
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5
-                           text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-gray-300 backdrop-blur-sm"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                03 — Our Approach
-              </motion.span>
-
               <motion.h2
                 variants={fadeUp}
-                className="mt-5 text-fluid-h2 font-bold"
+                className="text-fluid-h2 font-bold"
               >
                 Our <span className="text-[#bf1e2e]">Approach</span>
               </motion.h2>
@@ -321,14 +312,14 @@ const AboutUs = () => {
                 >
                   <div
                     className="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br from-[#bf1e2e] to-[#9e1925]
-                               text-white flex items-center justify-center font-bold text-sm mb-6
+                               text-white flex items-center justify-center mb-6
                                shadow-lg shadow-[#bf1e2e]/25
                                group-hover:scale-105 transition-transform duration-500"
                   >
-                    {step.number}
+                    <step.icon className="h-6 w-6" strokeWidth={1.5} />
                   </div>
                   <h3 className="text-fluid-h3 font-bold mb-3">{step.title}</h3>
-                  <p className="text-gray-400 text-fluid-body text-justify hyphens-auto">
+                  <p className="text-gray-400 text-fluid-body">
                     {step.description}
                   </p>
                   <span

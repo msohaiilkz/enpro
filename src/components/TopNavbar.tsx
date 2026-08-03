@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { Menu, X, ArrowRight, MapPin, Phone, Mail, Send, Facebook, Twitter, Linkedin, Youtube, Instagram } from "lucide-react";
+import { Menu, X, ArrowRight, Mail, Send } from "lucide-react";
+import {
+  LinkedInIcon,
+  FacebookIcon,
+  WhatsAppIcon,
+} from "@/components/icons/SocialIcons";
 import logo from "@/assets/logo1.png";
 // TODO: swap back to enpro-logo.png once that file is added to src/assets
 import logo2 from "@/assets/npro-logo.png";
@@ -45,17 +50,22 @@ const TopNavbar = () => {
 
   return (
     <>
+      {/* Fixed while scrolling; the bar turns to frosted glass once the page moves */}
       <header
-        className={`w-full sticky top-0 z-50 transition-all duration-300 ${
+        className={`w-full fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-[#111111] shadow-[0_4px_24px_rgba(0,0,0,0.4)] border-b border-white/[0.06]"
+            ? "bg-[#111111]/70 backdrop-blur-xl supports-[backdrop-filter]:bg-[#111111]/60 shadow-[0_4px_30px_rgba(0,0,0,0.45)] border-b border-white/[0.08]"
             : "bg-[#1a1a1a] border-b border-transparent"
         }`}
       >
         {/* Top accent line */}
         <div className="h-[3px] w-full bg-gradient-to-r from-[#bf1e2e] via-[#e03347] to-[#bf1e2e]" />
 
-        <div className="max-w-7xl mx-auto w-full px-4 sm:px-8 lg:px-12 flex items-center justify-between h-[66px] sm:h-[76px]">
+        <div
+          className={`max-w-7xl mx-auto w-full px-4 sm:px-8 lg:px-12 flex items-center justify-between transition-all duration-300 ${
+            scrolled ? "h-[58px] sm:h-[66px]" : "h-[66px] sm:h-[76px]"
+          }`}
+        >
 
           {/* Logo */}
           <button
@@ -111,6 +121,9 @@ const TopNavbar = () => {
         </div>
       </header>
 
+      {/* Keeps the page from sliding under the fixed bar */}
+      <div className="h-[69px] sm:h-[79px]" aria-hidden />
+
       {/* ─── Canvas Sidebar Overlay ─── */}
 
       {/* Backdrop */}
@@ -142,11 +155,21 @@ const TopNavbar = () => {
 
           {/* Brand */}
           <div className="mb-6">
-            <img
-              src={logo2}
-              alt="Enpro Consultants"
-              className="h-14 w-auto object-contain mb-4"
-            />
+            <button
+              type="button"
+              onClick={() => {
+                setSidebarOpen(false);
+                navigate("/");
+              }}
+              aria-label="Go to home page"
+              className="block mb-4 group"
+            >
+              <img
+                src={logo2}
+                alt="Enpro Consultants"
+                className="h-14 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+              />
+            </button>
             <p className="text-gray-500 text-sm leading-relaxed">
               Delivering excellence in engineering consultancy and construction management across every project.
             </p>
@@ -177,33 +200,20 @@ const TopNavbar = () => {
           <div className="mb-6">
             <h3 className="text-base font-bold text-gray-900 mb-4">Get In Touch</h3>
             <div className="flex flex-col gap-4">
-              <div className="flex items-start gap-3">
-                <span className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <MapPin size={14} className="text-gray-500" />
+              <a
+                href="mailto:info@enproconsultants.com"
+                className="group flex items-center gap-3"
+              >
+                <span className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center flex-shrink-0 group-hover:border-[#bf1e2e] group-hover:bg-[#bf1e2e] transition-colors duration-200">
+                  <Mail
+                    size={14}
+                    className="text-gray-500 group-hover:text-white transition-colors duration-200"
+                  />
                 </span>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Office No. 5, 2nd Floor, Block-6<br />
-                  Gulshan-e-Iqbal, Karachi
-                </p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center flex-shrink-0">
-                  <Phone size={14} className="text-gray-500" />
+                <span className="text-sm text-gray-600 group-hover:text-[#bf1e2e] transition-colors duration-200 break-all">
+                  info@enproconsultants.com
                 </span>
-                <div className="text-sm text-gray-600">
-                  <p>+92 21 1234 5678</p>
-                  <p>+92 300 0000 000</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center flex-shrink-0">
-                  <Mail size={14} className="text-gray-500" />
-                </span>
-                <div className="text-sm text-gray-600">
-                  <p>info@enproconsultants.com</p>
-                  <p>support@enproconsultants.com</p>
-                </div>
-              </div>
+              </a>
             </div>
           </div>
 
@@ -231,23 +241,25 @@ const TopNavbar = () => {
             </div>
           </div>
 
-          {/* Social Icons */}
+          {/* Social Icons - same brand marks used in the sidebar and footer */}
           <div className="flex items-center gap-3">
             {[
-              { Icon: Facebook,  href: "#" },
-              { Icon: Twitter,   href: "#" },
-              { Icon: Linkedin,  href: "#" },
-              { Icon: Youtube,   href: "#" },
-              { Icon: Instagram, href: "#" },
-            ].map(({ Icon, href }, i) => (
+              { Icon: LinkedInIcon, href: "#", label: "LinkedIn" },
+              { Icon: FacebookIcon, href: "#", label: "Facebook" },
+              { Icon: WhatsAppIcon, href: "#", label: "WhatsApp" },
+            ].map(({ Icon, href, label }) => (
               <a
-                key={i}
+                key={label}
                 href={href}
-                className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-[#bf1e2e] transition-colors duration-200"
+                aria-label={label}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="group w-10 h-10 rounded-full bg-[#1C1C1C] flex items-center justify-center
+                           text-white hover:bg-[#bf1e2e] hover:scale-110
+                           hover:shadow-lg hover:shadow-[#bf1e2e]/40
+                           transition-all duration-300"
               >
-                <Icon size={16} />
+                <Icon className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
               </a>
             ))}
           </div>

@@ -1,8 +1,23 @@
 import { useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Mail, Settings } from "lucide-react";
+import {
+  ArrowRight,
+  Gauge,
+  HardHat,
+  Mail,
+  Settings,
+  ShieldCheck,
+  Timer,
+} from "lucide-react";
 import { fadeUp, stagger, revealOnce } from "@/lib/motion";
+
+/**
+ * Project Impact icons, in the order the outcomes are listed:
+ * Safety & Integrity, Efficiency & Value, Buildability & Delivery,
+ * Performance & Longevity.
+ */
+const IMPACT_ICONS = [ShieldCheck, Gauge, HardHat, Timer];
 
 import TopNavbar from "@/components/TopNavbar";
 import Footer from "@/components/Footer";
@@ -48,21 +63,22 @@ const ServiceDetail = () => {
             <section className="min-h-[100dvh] flex items-center py-10 sm:py-12 lg:py-14 bg-white">
               <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
                 <motion.div variants={stagger(0.1)} {...revealOnce}>
-                  <motion.span
+                 
+
+                  <motion.h1
+                    variants={fadeUp}
+                    className="mb-5 text-fluid-h2 font-bold text-[#1C1C1C]"
+                  >
+                    {service.title}
+                  </motion.h1>
+                   <motion.span
                     variants={fadeUp}
                     className="inline-flex items-center gap-2 rounded-full border border-[#bf1e2e]/20 bg-[#fbe5e7] px-4 py-1.5
                                text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#bf1e2e]"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                    01 — What We Do
+                     What We Do
                   </motion.span>
-
-                  <motion.h1
-                    variants={fadeUp}
-                    className="mt-4 text-[clamp(1.5rem,1.7vw+0.9vh,2.5rem)] leading-[1.15] font-bold text-[#1C1C1C]"
-                  >
-                    {service.title}
-                  </motion.h1>
 
                   <motion.p
                     variants={fadeUp}
@@ -78,7 +94,7 @@ const ServiceDetail = () => {
 
                   <motion.p
                     variants={fadeUp}
-                    className="text-[#1C1C1C] text-fluid-body font-medium max-w-4xl mb-6 sm:mb-7 text-justify hyphens-auto"
+                    className="text-[#1C1C1C] text-fluid-body font-medium max-w-4xl mb-6 sm:mb-7 text-justify"
                   >
                     {service.detail.whatWeDo.intro}
                   </motion.p>
@@ -109,10 +125,7 @@ const ServiceDetail = () => {
                         />
                       </div>
                       <div>
-                        <span className="block text-[#bf1e2e] font-bold text-xs mb-0.5">
-                          {category.number}
-                        </span>
-                        <h2 className="text-[clamp(0.9375rem,0.5vw+0.35vh,1.0625rem)] font-bold text-[#1C1C1C] uppercase tracking-wide mb-1.5 leading-snug">
+                        <h2 className="text-fluid-h3 font-bold text-[#1C1C1C] uppercase tracking-wide mb-2">
                           {category.title}
                         </h2>
                         <ul className="space-y-0.5">
@@ -150,23 +163,35 @@ const ServiceDetail = () => {
                     className="pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-[#bf1e2e]/25 blur-3xl"
                     aria-hidden
                   />
-                  <div className="relative flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10">
-                    <div className="flex items-center gap-4 lg:w-60 flex-shrink-0">
-                      <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center flex-shrink-0">
-                        <Settings className="w-7 h-7 text-[#bf1e2e]" strokeWidth={1.5} />
+                  {/* Label sits on top so the items get the full width and each
+                      one stays on a single line */}
+                  <div className="relative">
+                    <div className="flex items-center gap-4 mb-6 sm:mb-7">
+                      <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center flex-shrink-0">
+                        <Settings
+                          className="w-6 h-6 text-[#bf1e2e]"
+                          strokeWidth={1.5}
+                        />
                       </div>
                       <p className="text-white font-semibold uppercase tracking-widest text-[11px] sm:text-xs">
                         Our Engineering Capability
                       </p>
                     </div>
 
-                    <ul className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-4">
-                      {service.detail.whatWeDo.capability.map((item) => (
+                    {/* Grid rows stretch, so every divider in a row is the same
+                        height */}
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3">
+                      {service.detail.whatWeDo.capability.map((item, index) => (
                         <li
                           key={item}
-                          className="text-gray-300 text-fluid-body leading-snug border-l border-[#bf1e2e]/50 pl-4"
+                          className="flex items-center gap-2.5 border-l border-[#bf1e2e]/50 pl-4 min-h-[2.5rem]"
                         >
-                          {item}
+                          <span className="text-[#bf1e2e] font-bold text-[11px] tracking-wider flex-shrink-0">
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <span className="text-gray-300 text-[11px] sm:text-xs lg:text-[11.5px] xl:text-xs leading-tight">
+                            {item}
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -204,14 +229,14 @@ const ServiceDetail = () => {
                     {...revealOnce}
                   >
                     <div className="lg:sticky lg:top-28">
-                      <motion.span
+                      {/* <motion.span
                         variants={fadeUp}
                         className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5
                                    text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-gray-300 backdrop-blur-sm"
                       >
                         <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                        02 — How We Work
-                      </motion.span>
+                         How We Work
+                      </motion.span> */}
 
                       <motion.h2
                         variants={fadeUp}
@@ -227,10 +252,29 @@ const ServiceDetail = () => {
 
                       <motion.p
                         variants={fadeUp}
-                        className="text-gray-400 text-fluid-body text-justify hyphens-auto"
+                        className="text-gray-400 text-fluid-body"
                       >
                         {service.detail.howWeWork.intro}
                       </motion.p>
+
+                      {service.detail.photo && (
+                        <motion.div
+                          variants={fadeUp}
+                          className="relative mt-7 overflow-hidden rounded-2xl ring-1 ring-white/10"
+                        >
+                          <img
+                            src={service.detail.photo}
+                            alt=""
+                            aria-hidden="true"
+                            loading="lazy"
+                            className="w-full h-[clamp(140px,20vh,220px)] object-cover object-center"
+                          />
+                          <span
+                            className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B]/70 to-transparent"
+                            aria-hidden
+                          />
+                        </motion.div>
+                      )}
                     </div>
                   </motion.div>
 
@@ -266,7 +310,7 @@ const ServiceDetail = () => {
                               <h3 className="text-fluid-h3 font-bold mb-2.5 group-hover:text-[#bf1e2e] transition-colors duration-500">
                                 {point.title}
                               </h3>
-                              <p className="text-gray-400 text-fluid-body text-justify hyphens-auto">
+                              <p className="text-gray-400 text-fluid-body">
                                 {point.description}
                               </p>
                             </div>
@@ -290,7 +334,7 @@ const ServiceDetail = () => {
               />
 
               <div className="relative w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-                <motion.div
+                {/* <motion.div
                   className="max-w-3xl mb-12 sm:mb-14"
                   variants={fadeUp}
                   {...revealOnce}
@@ -302,7 +346,7 @@ const ServiceDetail = () => {
                   <h2 className="mt-5 text-fluid-h2 font-bold text-[#1C1C1C]">
                     Project <span className="text-[#bf1e2e]">Impact</span>
                   </h2>
-                </motion.div>
+                </motion.div> */}
 
                 <motion.div
                   className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
@@ -323,17 +367,23 @@ const ServiceDetail = () => {
                                     ]
                                   }`}
                     >
-                      {/* Outlined numeral, fills with brand red on hover */}
+                      {/* Icon matching what the outcome describes */}
                       <span
-                        className="block text-6xl sm:text-7xl font-bold leading-none mb-5 select-none
-                                   transition-colors duration-500"
-                        style={{
-                          color: "transparent",
-                          WebkitTextStroke: "1.5px rgba(191,30,46,0.45)",
-                        }}
+                        className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-white
+                                   shadow-[0_2px_14px_rgba(191,30,46,0.10)]
+                                   group-hover:scale-105 group-hover:shadow-[0_8px_24px_rgba(191,30,46,0.20)]
+                                   transition-all duration-500"
                         aria-hidden
                       >
-                        {String(index + 1).padStart(2, "0")}
+                        {(() => {
+                          const Icon = IMPACT_ICONS[index % IMPACT_ICONS.length];
+                          return (
+                            <Icon
+                              className="h-7 w-7 text-[#bf1e2e]"
+                              strokeWidth={1.5}
+                            />
+                          );
+                        })()}
                       </span>
 
                       <h3 className="text-fluid-h3 font-bold text-[#1C1C1C] mb-3 leading-snug">
@@ -346,7 +396,7 @@ const ServiceDetail = () => {
                         aria-hidden
                       />
 
-                      <p className="text-gray-600 text-fluid-body text-justify hyphens-auto">
+                      <p className="text-gray-600 text-fluid-body">
                         {impact.description}
                       </p>
                     </motion.div>
@@ -365,7 +415,7 @@ const ServiceDetail = () => {
                     <span className="h-px w-8 bg-[#bf1e2e]" />
                     Keep Exploring
                   </span>
-                  <h2 className="mt-3 text-fluid-h2 font-bold text-[#1C1C1C]">
+                  <h2 className="mt-5 text-fluid-h2 font-bold text-[#1C1C1C]">
                     Other <span className="text-[#bf1e2e]">Services</span>
                   </h2>
                 </div>
@@ -409,7 +459,7 @@ const ServiceDetail = () => {
                               alt=""
                               aria-hidden="true"
                               loading="lazy"
-                              className="w-full h-full object-cover object-bottom"
+                              className="w-full h-full object-cover object-center"
                             />
                           </span>
 

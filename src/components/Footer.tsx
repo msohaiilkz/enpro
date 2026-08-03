@@ -31,8 +31,8 @@ const Footer = () => {
   const services = [
     "Structural Design & Engineering",
     "Design Review & Value Engineering",
-    "Construction Support Services",
     "Project & Contract Management",
+    "Construction Support Services",
     "Environmental & Social Advisory",
     "Digital Engineering & BIM",
   ];
@@ -41,7 +41,8 @@ const Footer = () => {
     <footer className="bg-white text-[#1C1C1C] border-t border-gray-200">
       {/* Main Footer Content */}
       <div className="w-full max-w-7xl mx-auto px-6 lg:px-8 py-10 sm:py-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10
+                        lg:grid-cols-[1.5fr_0.7fr_1.5fr_1.2fr] lg:gap-x-10">
           {/* Brand */}
           <div>
             <div className="mb-4 flex justify-center sm:justify-start">

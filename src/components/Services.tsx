@@ -80,18 +80,9 @@ const Services = () => {
           variants={stagger(0.12)}
           {...revealOnce}
         >
-          <motion.span
-            variants={fadeUp}
-            className="inline-flex items-center gap-2 rounded-full border border-[#bf1e2e]/20 bg-white/70 px-4 py-1.5
-                       text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#bf1e2e] backdrop-blur-sm shadow-sm"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-            Why Enpro
-          </motion.span>
-
           <motion.h2
             variants={fadeUp}
-            className="mt-4 text-fluid-h2 font-bold text-[#1C1C1C]"
+            className="text-fluid-h2 font-bold text-[#1C1C1C]"
           >
             Why <span className="text-[#bf1e2e]">Enpro</span>
           </motion.h2>
@@ -133,15 +124,6 @@ const Services = () => {
                 aria-hidden
               />
 
-              {/* Index */}
-              <span
-                className="absolute top-5 right-6 sm:top-6 sm:right-7 text-4xl sm:text-5xl lg:text-6xl font-bold text-white/[0.07]
-                           group-hover:text-[#bf1e2e]/30 transition-colors duration-500"
-                aria-hidden
-              >
-                {feature.number}
-              </span>
-
               {/* Icon tile */}
               <div
                 className="relative w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-2xl border border-white/10
@@ -169,7 +151,7 @@ const Services = () => {
               {/* Justified so every line ends flush; hyphenation keeps the word
                   gaps tight, which is what usually ruins justified text in a
                   narrow column. */}
-              <p className="relative text-gray-400 text-fluid-body text-justify hyphens-auto flex-grow">
+              <p className="relative text-gray-400 text-fluid-body text-left flex-grow">
                 {feature.description}
               </p>
 

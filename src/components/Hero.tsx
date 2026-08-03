@@ -1,8 +1,39 @@
-import { motion } from "framer-motion";
-import heroImage from "@/assets/hero-construction.jpeg";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { fadeUp, stagger } from "@/lib/motion";
 
+// The client's own site photograph stays first; the newer artwork follows.
+import heroOriginal from "@/assets/hero-construction.jpeg";
+import heroInfrastructure from "@/assets/hero-infrastructure.jpg";
+import heroCommunity from "@/assets/photo-community-survey.jpg";
+import heroSite from "@/assets/photo-site-support.jpg";
+import heroControls from "@/assets/photo-project-controls.jpg";
+import heroReview from "@/assets/photo-design-comparison.jpg";
+
+/** Background slideshow, one slide per discipline the tagline mentions. */
+const SLIDES = [
+  heroOriginal,
+  heroInfrastructure,
+  heroCommunity,
+  heroSite,
+  heroControls,
+  heroReview,
+];
+const SLIDE_MS = 5000;
+
 const Hero = () => {
+  const [slide, setSlide] = useState(0);
+
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+    const timer = window.setInterval(
+      () => setSlide((i) => (i + 1) % SLIDES.length),
+      SLIDE_MS,
+    );
+    return () => window.clearInterval(timer);
+  }, []);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -12,17 +43,25 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden py-16 sm:py-20 pb-24 sm:pb-28">
-      {/* Background Image with Parallax */}
-      <motion.div
-        className="absolute inset-0 parallax"
-        style={{ backgroundImage: `url(${heroImage})` }}
-        initial={{ scale: 1.08 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-      >
+      {/* Background slideshow, cross-fading with a slow zoom */}
+      <div className="absolute inset-0 overflow-hidden">
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={slide}
+            className="absolute inset-0 parallax"
+            style={{ backgroundImage: `url(${SLIDES[slide]})` }}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              opacity: { duration: 1.4, ease: "easeInOut" },
+              scale: { duration: SLIDE_MS / 1000 + 1.4, ease: "linear" },
+            }}
+          />
+        </AnimatePresence>
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-hero" />
-      </motion.div>
+      </div>
 
       {/* Content */}
       <motion.div
@@ -46,7 +85,7 @@ const Hero = () => {
           className="text-fluid-lead mb-6 sm:mb-8 max-w-3xl mx-auto opacity-90 px-1"
         >
           Integrated structural engineering, project delivery, environmental &
-          social advisory, and digital engineering for high-rise buildings,
+          social advisory, and digital engineering for <br /> high-rise buildings,
           bridges, industrial facilities, and critical infrastructure.
         </motion.p>
 
