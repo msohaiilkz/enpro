@@ -13,6 +13,35 @@ export default {
       },
     },
     extend: {
+      // `xs:` was already used in the markup but had never been defined
+      screens: {
+        xs: "475px",
+      },
+      fontSize: {
+        // Fluid type: scales with BOTH width and height, so a wide-but-short
+        // window (a 1920x1080 laptop, for instance) does not end up with
+        // oversized headings that push a section past the fold.
+        "fluid-hero": [
+          "clamp(1.75rem, 3.4vw + 1.6vh, 4rem)",
+          { lineHeight: "1.1" },
+        ],
+        "fluid-h2": [
+          "clamp(1.625rem, 2.2vw + 1.1vh, 3.25rem)",
+          { lineHeight: "1.14" },
+        ],
+        "fluid-h3": [
+          "clamp(1.0625rem, 0.9vw + 0.4vh, 1.375rem)",
+          { lineHeight: "1.35" },
+        ],
+        "fluid-lead": [
+          "clamp(0.875rem, 0.7vw + 0.4vh, 1.125rem)",
+          { lineHeight: "1.65" },
+        ],
+        "fluid-body": [
+          "clamp(0.8125rem, 0.5vw + 0.3vh, 0.9375rem)",
+          { lineHeight: "1.7" },
+        ],
+      },
       fontFamily: {
         sans: ['Open Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         heading: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],

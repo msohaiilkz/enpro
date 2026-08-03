@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import { Menu, X, ArrowRight, MapPin, Phone, Mail, Send, Facebook, Twitter, Linkedin, Youtube, Instagram } from "lucide-react";
-import logo from "@/assets/logo1.jpeg";
+import logo from "@/assets/logo1.png";
+// TODO: swap back to enpro-logo.png once that file is added to src/assets
+import logo2 from "@/assets/npro-logo.png";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const NAV_LINKS = [
   { label: "Home",       id: "home" },
   { label: "About Us",   id: "about" },
-  { label: "Services",   id: "service" },
-  { label: "Projects",   id: "features" },
-  { label: "Contact Us", id: "contact" },
+  { label: "Why Enpro",  id: "why-enpro" },
+  { label: "Services",   id: "services" },
+  { label: "Contact",    id: "contact" },
 ];
 
 const TopNavbar = () => {
@@ -141,7 +143,7 @@ const TopNavbar = () => {
           {/* Brand */}
           <div className="mb-6">
             <img
-              src={logo}
+              src={logo2}
               alt="Enpro Consultants"
               className="h-14 w-auto object-contain mb-4"
             />

@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { fadeUp, scaleIn, stagger, revealOnce } from "@/lib/motion";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { User, Mail, MessageSquare, ChevronDown } from "lucide-react";
-import contactImage from "@/assets/contact_thumb_7_1.png"; // change to your image
+import contactImage from "@/assets/contact-enpro.jpeg";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -41,25 +43,30 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-8 sm:py-16 bg-white relative overflow-hidden min-h-screen flex flex-col items-center justify-start">
-      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center mx-auto">
-          {/* Left: Image */}
-          <div className="relative h-full order-2 lg:order-1">
+    <section className="py-12 sm:py-14 lg:py-16 bg-white relative overflow-hidden min-h-[100dvh] flex flex-col items-center justify-center">
+      <div className="w-full max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center mx-auto">
+          {/* Left: Image - square, shown in full rather than stretched */}
+          <motion.div className="order-2 lg:order-1" variants={scaleIn} {...revealOnce}>
             <img
               src={contactImage}
-              alt="Team consultation"
-              className="w-full h-64 sm:h-80 md:h-96 lg:h-full lg:min-h-[500px] object-cover rounded-2xl lg:rounded-r-3xl shadow-xl"
+              alt="Enpro consultants reviewing a project in the office"
+              className="w-full max-w-[430px] max-h-[38vh] lg:max-h-[56vh] mx-auto aspect-square object-cover object-center rounded-2xl shadow-xl"
             />
-          </div>
+          </motion.div>
 
           {/* Right: Form */}
-          <div className="px-0 sm:px-4 lg:px-8 xl:px-16 py-6 sm:py-10 order-1 lg:order-2">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#1C1C1C] mb-6 sm:mb-8">
+          <motion.div
+            className="px-0 sm:px-2 lg:px-4 order-1 lg:order-2"
+            variants={stagger(0.1)}
+            {...revealOnce}
+          >
+            <motion.h2 variants={fadeUp} className="text-fluid-h2 font-bold text-[#1C1C1C] mb-4 sm:mb-6">
               Contact Us
-            </h2>
+            </motion.h2>
 
-            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+            <motion.form
+              variants={fadeUp} onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
               {/* Name */}
               <div className="relative group">
                 <input
@@ -69,7 +76,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Your Name*"
-                  className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#bf1e2e]/20 focus:border-[#bf1e2e] transition-all duration-300 placeholder-gray-400 pl-10 sm:pl-12 text-sm sm:text-base"
+                  className="w-full px-4 sm:px-6 py-2.5 sm:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#bf1e2e]/20 focus:border-[#bf1e2e] transition-all duration-300 placeholder-gray-400 pl-10 sm:pl-12 text-sm sm:text-base"
                 />
                 <User
                   className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#bf1e2e] transition-colors"
@@ -86,7 +93,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Your Email*"
-                  className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#bf1e2e]/20 focus:border-[#bf1e2e] transition-all duration-300 placeholder-gray-400 pl-10 sm:pl-12 text-sm sm:text-base"
+                  className="w-full px-4 sm:px-6 py-2.5 sm:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#bf1e2e]/20 focus:border-[#bf1e2e] transition-all duration-300 placeholder-gray-400 pl-10 sm:pl-12 text-sm sm:text-base"
                 />
                 <Mail
                   className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#bf1e2e] transition-colors"
@@ -101,15 +108,27 @@ const Contact = () => {
                   name="service"
                   value={formData.service}
                   onChange={handleChange}
-                  className="appearance-none w-full px-4 sm:px-6 py-3 sm:py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#bf1e2e]/20 focus:border-[#bf1e2e] transition-all duration-300 pl-10 sm:pl-12 cursor-pointer text-sm sm:text-base"
+                  className="appearance-none w-full px-4 sm:px-6 py-2.5 sm:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#bf1e2e]/20 focus:border-[#bf1e2e] transition-all duration-300 pl-10 sm:pl-12 cursor-pointer text-sm sm:text-base"
                 >
                   <option value="">Select Service</option>
-                  <option value="real-estate"> Conceptual and Preliminary Design</option>
-                  <option value="steel-fabrication">Design Review and Value Engineering</option>
-                  <option value="bridge">Project and Contract Management Services</option>
-                  <option value="consultation">Environmental and Social Services</option>
-                  <option value="digital-delivery">Virtual and Digital Delivery</option>
-                  <option value="construction-support">Construction Support Services</option>
+                  <option value="structural-design">
+                    Structural Design &amp; Engineering
+                  </option>
+                  <option value="design-review">
+                    Design Review &amp; Value Engineering
+                  </option>
+                  <option value="construction-support">
+                    Construction Support Services
+                  </option>
+                  <option value="project-management">
+                    Project &amp; Contract Management Services
+                  </option>
+                  <option value="environmental-social">
+                    Environmental &amp; Social Advisory
+                  </option>
+                  <option value="digital-bim">
+                    Digital Engineering &amp; BIM
+                  </option>
                 </select>
                 <div className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2">
                   <ChevronDown
@@ -128,7 +147,7 @@ const Contact = () => {
                   onChange={handleChange}
                   placeholder="Type Your Message"
                   rows={4}
-                  className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#bf1e2e]/20 focus:border-[#bf1e2e] transition-all duration-300 placeholder-gray-400 pl-10 sm:pl-12 resize-none text-sm sm:text-base"
+                  className="w-full px-4 sm:px-6 py-2.5 sm:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#bf1e2e]/20 focus:border-[#bf1e2e] transition-all duration-300 placeholder-gray-400 pl-10 sm:pl-12 resize-none text-sm sm:text-base"
                 ></textarea>
                 <MessageSquare
                   className="absolute left-3 sm:left-4 top-5 text-gray-400 group-focus-within:text-[#bf1e2e] transition-colors"
@@ -139,12 +158,12 @@ const Contact = () => {
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full bg-[#bf1e2e] hover:bg-[#961a27] text-white text-base sm:text-lg font-bold rounded-xl py-3 sm:py-6 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+                className="w-full bg-[#bf1e2e] hover:bg-[#961a27] text-white text-sm sm:text-base font-bold rounded-xl py-3 sm:py-4 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
               >
                 Submit Message
               </Button>
-            </form>
-          </div>
+            </motion.form>
+          </motion.div>
         </div>
       </div>
     </section>

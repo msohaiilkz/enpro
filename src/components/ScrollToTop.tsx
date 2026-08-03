@@ -6,41 +6,39 @@ const ScrollToTop = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    // The landing page scrolls inside its own container; the detail pages
+    // scroll the window.
     const scrollContainer = document.getElementById("main-scroll-container");
-    
-    if (!scrollContainer) return;
+    const target: HTMLElement | Window = scrollContainer ?? window;
 
     const handleScroll = () => {
-      // Calculate scroll progress based on the specific container
-      const scrollTotal = scrollContainer.scrollHeight - scrollContainer.clientHeight;
-      const currentScroll = scrollContainer.scrollTop;
-      
+      const scrollTotal = scrollContainer
+        ? scrollContainer.scrollHeight - scrollContainer.clientHeight
+        : document.documentElement.scrollHeight - window.innerHeight;
+      const currentScroll = scrollContainer
+        ? scrollContainer.scrollTop
+        : window.scrollY;
+
       if (scrollTotal > 0) {
         setProgress((currentScroll / scrollTotal) * 100);
       }
 
-      // Show/hide button based on scroll position
-      if (currentScroll > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
+      setIsVisible(currentScroll > 300);
     };
 
-    scrollContainer.addEventListener("scroll", handleScroll);
+    target.addEventListener("scroll", handleScroll);
     // Initial check
     handleScroll();
 
-    return () => scrollContainer.removeEventListener("scroll", handleScroll);
+    return () => target.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToTop = () => {
     const scrollContainer = document.getElementById("main-scroll-container");
     if (scrollContainer) {
-      scrollContainer.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+      scrollContainer.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -51,7 +49,7 @@ const ScrollToTop = () => {
 
   return (
     <div
-      className={`fixed bottom-8 right-8 z-[100] transition-all duration-500 transform ${
+      className={`fixed bottom-20 right-8 z-[100] transition-all duration-500 transform ${
         isVisible ? "translate-y-0 opacity-100 scale-100" : "translate-y-20 opacity-0 scale-50"
       }`}
     >

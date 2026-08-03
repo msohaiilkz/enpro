@@ -1,39 +1,49 @@
 import React, { useState } from "react";
+import { Menu, X, ArrowRight } from "lucide-react";
+import logo from "@/assets/logo1.png";
 import {
-  Menu,
-  X,
-  Linkedin,
-  Facebook,
-  Twitter,
-  Instagram,
-  Youtube,
-  ArrowRight,
-} from "lucide-react";
-import logo from "@/assets/logo1.jpeg";
+  LinkedInIcon,
+  FacebookIcon,
+  WhatsAppIcon,
+} from "@/components/icons/SocialIcons";
 
 const SidebarNav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleNavigation = (id: string) => {
-    const targetUrl = `/#${id}`;
-    window.location.assign(targetUrl);
     setIsMobileMenuOpen(false);
+
+    // Section is on this page -> scroll to it without a full page reload.
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+
+    // Coming from another route (e.g. /service-details) -> go home with a hash.
+    window.location.assign(`/#${id}`);
   };
 
   const navLinks = [
     { label: "Home", id: "home" },
-    { label: "Features", id: "features" },
     { label: "About Us", id: "about" },
-    { label: "Service", id: "service" },
-    { label: "Contact Us", id: "contact" },
+    { label: "Why Enpro", id: "why-enpro" },
+    { label: "Services", id: "services" },
+    { label: "Contact", id: "contact" },
   ];
 
-  const socialLinks = [{ icon: Linkedin, href: "#" }];
+  // TODO: replace the placeholder hrefs once the client shares the live profiles
+  const socialLinks = [
+    { icon: LinkedInIcon, href: "#", label: "LinkedIn" },
+    { icon: FacebookIcon, href: "#", label: "Facebook" },
+    { icon: WhatsAppIcon, href: "#", label: "WhatsApp" },
+  ];
 
   const DesktopSidebar = () => (
     <nav
-      className="hidden lg:flex flex-col fixed top-0 left-0 h-full w-[280px] bg-black text-white z-50 
-                 shadow-[4px_0_24px_rgba(0,0,0,0.4)] justify-between border-r border-white/5 transition-all duration-300"
+      className="hidden lg:flex flex-col fixed top-0 left-0 h-full w-[280px] text-white z-50
+                 bg-gradient-to-b from-[#242424] to-[#181818]
+                 shadow-[4px_0_24px_rgba(0,0,0,0.35)] justify-between border-r border-white/10 transition-all duration-300"
     >
       {/* Logo Area */}
       <div className="flex flex-col items-center justify-center py-12">
@@ -63,29 +73,36 @@ const SidebarNav = () => {
 
       {/* Footer Area: Socials + CTA */}
       <div className="flex flex-col space-y-6 items-center w-full pb-10 px-6 pt-8">
-        {/* Social Icons */}
-        <div className="flex space-x-4 justify-center">
-          {socialLinks.map((social, index) => (
+        {/* Call to action */}
+        <button
+          onClick={() => handleNavigation("contact")}
+          className="w-full text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2
+                     text-sm shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+          style={{
+            background: "linear-gradient(135deg, #BE1E2D 0%, #9e1925 100%)",
+          }}
+        >
+          <span className="tracking-wide">Get In Touch</span>
+          <ArrowRight size={16} />
+        </button>
+
+        {/* Social Icons - below the call to action */}
+        <div className="flex items-center justify-center gap-3">
+          {socialLinks.map((social) => (
             <a
-              key={index}
+              key={social.label}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center 
-                         text-gray-400 hover:text-white hover:border-[#bf1e2e] hover:bg-[#bf1e2e] 
-                         transition-all duration-300 shadow-lg hover:shadow-[#bf1e2e]/20"
+              aria-label={social.label}
+              className="group w-10 h-10 rounded-full bg-[#0d0d0d] flex items-center justify-center
+                         text-gray-500 hover:text-white hover:bg-[#bf1e2e] hover:scale-110
+                         hover:shadow-lg hover:shadow-[#bf1e2e]/40
+                         transition-all duration-300"
             >
-              <social.icon size={20} />
+              <social.icon className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
             </a>
           ))}
-        </div>
-
-        {/* Tagline Container */}
-        <div className="w-full flex flex-col items-center bg-[#9e1925] rounded-xl py-3 px-4">
-          {/* Tagline - Now White and Non-Italic */}
-          <p className="text-white text-sm font-bold tracking-widest text-center opacity-80 uppercase">
-            Partners in Performance
-          </p>
         </div>
       </div>
     </nav>
@@ -103,7 +120,7 @@ const SidebarNav = () => {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 bg-[#1a1a1a] text-white flex flex-col items-center justify-center space-y-6 sm:space-y-10 p-4 sm:p-8 animate-fade-in overflow-y-auto">
+        <div className="lg:hidden fixed inset-0 z-50 bg-gradient-to-b from-[#242424] to-[#181818] text-white flex flex-col items-center justify-center space-y-6 sm:space-y-10 p-4 sm:p-8 animate-fade-in overflow-y-auto">
           <div className="p-3 sm:p-4 bg-white/20 rounded-2xl border border-white/10 shrink-0">
             <img
               src={logo}
@@ -125,19 +142,6 @@ const SidebarNav = () => {
           </div>
 
           <div className="flex flex-col w-full items-center space-y-4 sm:space-y-8 shrink-0 pb-6 sm:pb-8">
-            <div className="flex space-x-3 sm:space-x-5">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center 
-                                hover:bg-[#bf1e2e] hover:border-[#bf1e2e] text-gray-300 hover:text-white transition-all duration-300"
-                >
-                  <social.icon size={18} className="sm:w-5.5 sm:h-5.5" />
-                </a>
-              ))}
-            </div>
-
             <button
               onClick={() => handleNavigation("contact")}
               className="w-full max-w-xs text-white font-bold py-3 sm:py-4 rounded-xl flex items-center justify-center space-x-2 shadow-xl text-sm sm:text-base"
@@ -145,14 +149,30 @@ const SidebarNav = () => {
                 background: "linear-gradient(135deg, #BE1E2D 0%, #9e1925 100%)",
               }}
             >
-              <span className="tracking-wide">Request A Visit</span>
+              <span className="tracking-wide">Get In Touch</span>
               <ArrowRight size={18} className="sm:w-5 sm:h-5" />
             </button>
 
             {/* Tagline */}
-            <p className="text-[#BE1E2D]  p-3 text-xs sm:text-base font-bold tracking-widest italic mt-2 drop-shadow-sm">
+            <p className="text-[#BE1E2D] p-3 text-xs sm:text-base font-bold tracking-widest italic mt-2 drop-shadow-sm">
               Partners in Performance
             </p>
+
+            {/* Social Icons - below the tagline */}
+            <div className="flex items-center justify-center gap-3">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  className="w-11 h-11 rounded-full bg-[#0d0d0d] flex items-center justify-center
+                             text-gray-500 hover:text-white hover:bg-[#bf1e2e] hover:scale-110
+                             hover:shadow-lg hover:shadow-[#bf1e2e]/40 transition-all duration-300"
+                >
+                  <social.icon className="w-[18px] h-[18px]" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       )}

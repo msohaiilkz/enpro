@@ -1,64 +1,101 @@
-import { CheckCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import aboutImage from "@/assets/about-engineers.jpg";
+import { CheckCircle, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import aboutImage from "@/assets/about-enpro.jpeg";
+import { fadeUp, scaleIn, stagger, revealOnce } from "@/lib/motion";
 
 const About = () => {
   const features = [
-    "Structural engineering Solutions",
-    "Reliable Project Delivery",
-    "Sustainable & Responsible Design",
+    {
+      title: "Technical Excellence",
+      description: "Precision-driven engineering and innovation.",
+    },
+    {
+      title: "Delivery Confidence",
+      description: "Reliable execution and disciplined delivery.",
+    },
+    {
+      title: "Responsible Engineering",
+      description: "Sustainable, compliant, and future-focused solutions.",
+    },
   ];
 
   return (
     <section
-      className="pt-8 sm:pt-12 pb-16 sm:pb-32 bg-white relative overflow-hidden min-h-screen flex flex-col items-center justify-start"
+      className="py-12 sm:py-14 lg:py-16 pb-24 sm:pb-28 bg-white relative overflow-hidden min-h-[100dvh] flex flex-col items-center justify-center"
     >
-      <div className="w-full max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 items-center mx-auto">
-          {/* Left Image */}
-          <div className="relative h-full order-2 lg:order-1">
+      <div className="w-full max-w-6xl mx-auto px-5 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center mx-auto">
+          {/* Left Image - kept square so the full photo is visible, never stretched */}
+          <motion.div className="order-2 lg:order-1" variants={scaleIn} {...revealOnce}>
             <img
               src={aboutImage}
-              alt="Structural engineers reviewing blueprints"
-              className="w-full h-64 sm:h-80 md:h-96 lg:h-full lg:min-h-[500px] object-cover rounded-2xl lg:rounded-r-3xl shadow-xl"
+              alt="Enpro engineers working on structural and infrastructure designs"
+              className="w-full max-w-[430px] max-h-[42vh] lg:max-h-[56vh] mx-auto aspect-square object-cover object-center rounded-2xl shadow-xl"
             />
-          </div>
+          </motion.div>
 
           {/* Right Content */}
-          <div className="px-0 sm:px-4 lg:px-8 xl:px-16 py-6 sm:py-10 order-1 lg:order-2">
+          <motion.div
+            className="px-0 sm:px-2 lg:px-4 order-1 lg:order-2"
+            variants={stagger(0.1)}
+            {...revealOnce}
+          >
             {/* Heading */}
-            <div className="flex items-center gap-2 mb-3 sm:mb-4">
+            <motion.div variants={fadeUp} className="flex items-center gap-2 mb-3 sm:mb-4">
               <span className="h-0.5 w-8 sm:w-10 bg-[#bf1e2e]" />
               <p className="text-[#bf1e2e] font-bold uppercase tracking-widest text-xs sm:text-sm">
                 About Us
               </p>
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#1a1a1a] mb-4 sm:mb-6 leading-tight">
-              Excellence That <br />
+            </motion.div>
+            <motion.h2 variants={fadeUp} className="text-fluid-h2 font-bold text-[#1a1a1a] mb-3 sm:mb-4">
+              Engineering That{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#bf1e2e] to-[#9e1925]">
-                Links Cities
+                Endures
               </span>
-            </h2>
+            </motion.h2>
 
-            <p className="text-gray-600 leading-relaxed mb-6 sm:mb-8 text-sm sm:text-base lg:text-lg">
-              By integrating structural engineering excellence with disciplined
-              project management, responsible environmental and social
-              practices, and effective contract management, we deliver holistic,
-              sustainable, and value-driven solutions.
-            </p>
+            {/* Justified on desktop, left-aligned on mobile to avoid ragged word spacing */}
+            <motion.p variants={fadeUp} className="text-gray-600 mb-4 sm:mb-6 text-fluid-lead text-justify hyphens-auto">
+              We believe exceptional engineering goes beyond technical design.
+              Every project is guided by precision, practicality, and a
+              commitment to delivering resilient, efficient, and sustainable
+              outcomes that stand the test of time.
+            </motion.p>
 
             {/* Features List */}
-            <ul className="space-y-3 sm:space-y-4 mb-8 sm:mb-10">
-              {features.map((feature, index) => (
-                <li key={index} className="flex items-start gap-2 sm:gap-3 group">
+            <motion.ul variants={stagger(0.1)} className="space-y-2.5 sm:space-y-3.5 mb-5 sm:mb-7">
+              {features.map((feature) => (
+                <motion.li
+                  variants={fadeUp}
+                  key={feature.title}
+                  className="flex items-start gap-2 sm:gap-3 group"
+                >
                   <div className="mt-1 p-1 rounded-full bg-[#bf1e2e]/10 group-hover:bg-[#bf1e2e]/20 transition-colors flex-shrink-0">
                     <CheckCircle className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-[#bf1e2e]" />
                   </div>
-                  <span className="text-gray-700 font-medium text-sm sm:text-base">{feature}</span>
-                </li>
+                  <div>
+                    <p className="text-[#bf1e2e] font-semibold text-fluid-body sm:text-base">
+                      {feature.title}
+                    </p>
+                    <p className="text-gray-600 text-fluid-body">
+                      {feature.description}
+                    </p>
+                  </div>
+                </motion.li>
               ))}
-            </ul>
-          </div>
+            </motion.ul>
+
+            <motion.div variants={fadeUp}>
+            <Link
+              to="/about-us"
+              className="inline-flex items-center gap-2 bg-[#bf1e2e] hover:bg-[#961a27] text-white font-semibold rounded-xl px-6 sm:px-8 h-11 text-sm sm:text-base shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+            >
+              Learn More
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* Decorative Shape */}
@@ -110,7 +147,7 @@ const About = () => {
       <div className="absolute bottom-8 inset-x-0 flex justify-center z-20">
         <button 
           onClick={() => {
-            const element = document.getElementById("service");
+            const element = document.getElementById("why-enpro");
             if (element) element.scrollIntoView({ behavior: "smooth" });
           }}
           className="animate-bounce cursor-pointer group"

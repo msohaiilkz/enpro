@@ -1,14 +1,10 @@
-import Navbar from "@/components/Navbar";
+import SidebarNav from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
-import Projects from "@/components/Projects";
-import Counters from "@/components/Counters";
-import Testimonials from "@/components/Testimonials";
+import FeaturedServices from "@/components/Feature";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import FeaturedServices from "@/components/Feature";
-import SidebarNav from "@/components/Navbar";
 import ScrollToTop from "@/components/ScrollToTop";
 
 import React, { useEffect } from "react";
@@ -40,30 +36,32 @@ const Index = () => {
   }, []); // Run only once on mount
 
   return (
-    <div id="main-scroll-container" className="h-screen overflow-y-auto snap-y-mandatory no-scrollbar">
+    // snap-proximity, not snap-mandatory: a section that grows taller than the
+    // viewport (e.g. Services once expanded) must stay freely scrollable instead
+    // of being forced back to a snap point, which clipped its top.
+    <div id="main-scroll-container" className="h-[100dvh] overflow-y-auto snap-y snap-proximity no-scrollbar">
       <SidebarNav />
 
+      {/* Section order follows the sidebar flow agreed with the client:
+          Home | About Us | Why Enpro | Services | Contact */}
       <main className="lg:ml-[280px]">
-        {/* Make sure the first section has the 'home' ID */}
-        <div id="home" className="snap-start min-h-screen">
+        <div id="home" className="snap-start">
           <Hero />
         </div>
 
-        {/* 'features' ID matches the Services component */}
-        <div id="features" className="snap-start min-h-screen">
-          <Services />
-        </div>
-
-        <div id="about" className="snap-start min-h-screen">
+        <div id="about" className="snap-start">
           <About />
         </div>
 
-        {/* 'service' ID matches the FeaturedServices component */}
-        <div id="service" className="snap-start min-h-screen">
+        <div id="why-enpro" className="snap-start">
+          <Services />
+        </div>
+
+        <div id="services" className="snap-start">
           <FeaturedServices />
         </div>
 
-        <div id="contact" className="snap-start min-h-screen">
+        <div id="contact" className="snap-start">
           <Contact />
         </div>
       </main>
