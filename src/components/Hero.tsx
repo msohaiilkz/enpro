@@ -4,20 +4,20 @@ import { fadeUp, stagger } from "@/lib/motion";
 
 // The client's own site photograph stays first; the newer artwork follows.
 import heroOriginal from "@/assets/hero-construction.jpeg";
-import heroInfrastructure from "@/assets/hero-infrastructure.jpg";
 import heroCommunity from "@/assets/photo-community-survey.jpg";
 import heroSite from "@/assets/photo-site-support.jpg";
 import heroControls from "@/assets/photo-project-controls.jpg";
 import heroReview from "@/assets/photo-design-comparison.jpg";
+import heroBim from "@/assets/photo-bim.jpg";
 
 /** Background slideshow, one slide per discipline the tagline mentions. */
 const SLIDES = [
   heroOriginal,
-  heroInfrastructure,
   heroCommunity,
   heroSite,
   heroControls,
   heroReview,
+  heroBim,
 ];
 const SLIDE_MS = 5000;
 

@@ -3,12 +3,15 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
+  Compass,
   Gauge,
   HardHat,
   Mail,
   Settings,
   ShieldCheck,
+  Sliders,
   Timer,
+  Workflow,
 } from "lucide-react";
 import { fadeUp, stagger, revealOnce } from "@/lib/motion";
 
@@ -18,6 +21,13 @@ import { fadeUp, stagger, revealOnce } from "@/lib/motion";
  * Performance & Longevity.
  */
 const IMPACT_ICONS = [ShieldCheck, Gauge, HardHat, Timer];
+
+/**
+ * How We Work icons, in the order the points are listed:
+ * Engineering with Purpose, Integrated from the Start,
+ * Optimised for the Long Term.
+ */
+const HOW_WE_WORK_ICONS = [Compass, Workflow, Sliders];
 
 import TopNavbar from "@/components/TopNavbar";
 import Footer from "@/components/Footer";
@@ -64,21 +74,26 @@ const ServiceDetail = () => {
               <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
                 <motion.div variants={stagger(0.1)} {...revealOnce}>
                  
-
-                  <motion.h1
-                    variants={fadeUp}
-                    className="mb-5 text-fluid-h2 font-bold text-[#1C1C1C]"
-                  >
-                    {service.title}
-                  </motion.h1>
-                   <motion.span
+ <motion.span
                     variants={fadeUp}
                     className="inline-flex items-center gap-2 rounded-full border border-[#bf1e2e]/20 bg-[#fbe5e7] px-4 py-1.5
                                text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#bf1e2e]"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                     What We Do
+                     
+                     {service.title}
                   </motion.span>
+                  <motion.h1
+                    variants={fadeUp}
+                    className="mt-5 text-fluid-h2 font-bold text-[#1C1C1C]"
+                  >
+                    What We <span className="text-[#bf1e2e]">Do</span>
+                  </motion.h1>
+                   <motion.span
+                    variants={fadeUp}
+                    className="block h-[3px] w-14 bg-[#bf1e2e] mt-4 mb-4"
+                  />
+                  
 
                   <motion.p
                     variants={fadeUp}
@@ -87,10 +102,7 @@ const ServiceDetail = () => {
                     {service.detail.tagline}
                   </motion.p>
 
-                  <motion.span
-                    variants={fadeUp}
-                    className="block h-[3px] w-14 bg-[#bf1e2e] mt-4 mb-4"
-                  />
+                 
 
                   <motion.p
                     variants={fadeUp}
@@ -229,20 +241,20 @@ const ServiceDetail = () => {
                     {...revealOnce}
                   >
                     <div className="lg:sticky lg:top-28">
-                      {/* <motion.span
+                      <motion.span
                         variants={fadeUp}
                         className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5
                                    text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-gray-300 backdrop-blur-sm"
                       >
                         <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                         How We Work
-                      </motion.span> */}
+                        Our Process
+                      </motion.span>
 
                       <motion.h2
                         variants={fadeUp}
                         className="mt-5 text-fluid-h2 font-bold"
                       >
-                        How We <span className="text-[#bf1e2e]">Work</span>
+                        How We  <span className="text-[#bf1e2e]">Work</span>
                       </motion.h2>
 
                       <motion.span
@@ -298,13 +310,24 @@ const ServiceDetail = () => {
                           />
                           <div className="flex gap-5 sm:gap-7 transition-transform duration-500 group-hover:translate-x-4">
                             <span
-                              className="text-3xl sm:text-4xl font-bold leading-none transition-colors duration-500"
-                              style={{
-                                color: "transparent",
-                                WebkitTextStroke: "1.5px rgba(255,255,255,0.28)",
-                              }}
+                              className="flex h-12 w-12 sm:h-14 sm:w-14 flex-shrink-0 items-center justify-center
+                                         rounded-2xl border border-white/10 bg-white/[0.07]
+                                         group-hover:border-[#bf1e2e]/50 group-hover:bg-[#bf1e2e]/15
+                                         transition-colors duration-500"
+                              aria-hidden
                             >
-                              {String(index + 1).padStart(2, "0")}
+                              {(() => {
+                                const Icon =
+                                  HOW_WE_WORK_ICONS[
+                                    index % HOW_WE_WORK_ICONS.length
+                                  ];
+                                return (
+                                  <Icon
+                                    className="h-6 w-6 sm:h-7 sm:w-7 text-[#bf1e2e]"
+                                    strokeWidth={1.5}
+                                  />
+                                );
+                              })()}
                             </span>
                             <div>
                               <h3 className="text-fluid-h3 font-bold mb-2.5 group-hover:text-[#bf1e2e] transition-colors duration-500">
@@ -334,19 +357,19 @@ const ServiceDetail = () => {
               />
 
               <div className="relative w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-                {/* <motion.div
+                <motion.div
                   className="max-w-3xl mb-12 sm:mb-14"
                   variants={fadeUp}
                   {...revealOnce}
                 >
                   <span className="inline-flex items-center gap-2 rounded-full border border-[#bf1e2e]/20 bg-white/70 px-4 py-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#bf1e2e] backdrop-blur-sm">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                    03 — Project Impact
+                    Outcomes Delivered
                   </span>
                   <h2 className="mt-5 text-fluid-h2 font-bold text-[#1C1C1C]">
                     Project <span className="text-[#bf1e2e]">Impact</span>
                   </h2>
-                </motion.div> */}
+                </motion.div>
 
                 <motion.div
                   className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
@@ -411,8 +434,9 @@ const ServiceDetail = () => {
             <section className="min-h-[100dvh] flex items-center py-14 sm:py-16 lg:py-20 bg-white border-t border-gray-100">
               <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
                 <div className="mb-6 sm:mb-8">
-                  <span className="inline-flex items-center gap-3 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.25em] text-[#bf1e2e]">
-                    <span className="h-px w-8 bg-[#bf1e2e]" />
+                  <span className="inline-flex items-center gap-2 rounded-full border border-[#bf1e2e]/20 bg-[#fbe5e7] px-4 py-1.5
+                                   text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#bf1e2e]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
                     Keep Exploring
                   </span>
                   <h2 className="mt-5 text-fluid-h2 font-bold text-[#1C1C1C]">
