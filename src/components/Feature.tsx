@@ -164,7 +164,7 @@ const FeaturedServices = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-3 inset-x-0 flex justify-center">
+      <div className="absolute bottom-12 inset-x-0 flex justify-center">
         <button
           onClick={() => {
             const element = document.getElementById("contact");
