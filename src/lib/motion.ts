@@ -34,12 +34,24 @@ export const stagger = (staggerChildren = 0.12, delayChildren = 0): Variants => 
 /**
  * Reveal once when the element scrolls into view.
  *
- * `amount` is deliberately small: tall blocks (a long list of points, a wide
- * outcome grid) would otherwise sit at opacity 0 until a fifth of them had
- * scrolled in, which reads as missing content.
+ * `amount` is deliberately tiny and the root margin generous, so a block starts
+ * animating well before it reaches the fold.
  */
 export const revealOnce = {
   initial: "hidden" as const,
   whileInView: "show" as const,
-  viewport: { once: true, amount: 0.01, margin: "0px 0px -40px 0px" },
+  viewport: { once: true, amount: 0.01, margin: "400px 0px 400px 0px" },
+};
+
+/**
+ * Animates as soon as the page mounts rather than on scroll.
+ *
+ * The detail pages carry long blocks of copy, and a missed scroll observer
+ * there leaves a whole section looking empty. Playing on mount costs nothing
+ * visually - the reader has not reached those sections yet - and the content
+ * can never be left invisible.
+ */
+export const revealOnMount = {
+  initial: "hidden" as const,
+  animate: "show" as const,
 };

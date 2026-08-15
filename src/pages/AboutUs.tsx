@@ -20,7 +20,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import bannerImage from "@/assets/banner-about-us.jpeg";
 import officeImage from "@/assets/about-enpro.jpeg";
 import ctaImage from "@/assets/contact-enpro.jpeg";
-import { fadeUp, scaleIn, stagger, revealOnce } from "@/lib/motion";
+import { fadeUp, scaleIn, stagger, revealOnMount } from "@/lib/motion";
 
 const BUILT_TO_EVOLVE = [
   {
@@ -103,7 +103,7 @@ const AboutUs = () => {
               <motion.div
                 className="relative order-2 lg:order-1"
                 variants={scaleIn}
-                {...revealOnce}
+                {...revealOnMount}
               >
                 <span
                   className="absolute -top-4 -left-4 w-24 h-24 sm:w-32 sm:h-32 rounded-tl-3xl border-t-4 border-l-4 border-[#bf1e2e]"
@@ -124,7 +124,7 @@ const AboutUs = () => {
               <motion.div
                 className="order-1 lg:order-2"
                 variants={stagger(0.1)}
-                {...revealOnce}
+                {...revealOnMount}
               >
                 <motion.h1
                   variants={fadeUp}
@@ -194,7 +194,7 @@ const AboutUs = () => {
             <motion.div
               className="max-w-3xl mb-10 sm:mb-14"
               variants={stagger(0.1)}
-              {...revealOnce}
+              {...revealOnMount}
             >
               <motion.h2
                 variants={fadeUp}
@@ -214,7 +214,7 @@ const AboutUs = () => {
             <motion.div
               className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 lg:gap-8"
               variants={stagger()}
-              {...revealOnce}
+              {...revealOnMount}
             >
               {BUILT_TO_EVOLVE.map((item) => (
                 <motion.article
@@ -276,7 +276,7 @@ const AboutUs = () => {
             <motion.div
               className="max-w-3xl mb-12 sm:mb-16"
               variants={stagger(0.1)}
-              {...revealOnce}
+              {...revealOnMount}
             >
               <motion.h2
                 variants={fadeUp}
@@ -296,7 +296,7 @@ const AboutUs = () => {
             <motion.ol
               className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-8 lg:gap-6"
               variants={stagger()}
-              {...revealOnce}
+              {...revealOnMount}
             >
               {/* Connecting rail on desktop */}
               <span
@@ -338,7 +338,7 @@ const AboutUs = () => {
           <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
             <motion.div
               variants={fadeUp}
-              {...revealOnce}
+              {...revealOnMount}
               className="relative overflow-hidden rounded-[1.75rem] sm:rounded-[2rem] bg-[#0B0B0B]"
             >
               {/* Client photograph as the backdrop */}

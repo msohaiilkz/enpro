@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Mail, Settings } from "lucide-react";
-import { fadeUp, scaleIn, stagger, revealOnce } from "@/lib/motion";
+import { fadeUp, scaleIn, stagger, revealOnMount } from "@/lib/motion";
 import type { ServiceIcon } from "@/data/services";
 
 /**
@@ -73,7 +73,7 @@ const ServiceDetail = () => {
                 <motion.div
                   className="mb-7 sm:mb-9"
                   variants={stagger(0.1)}
-                  {...revealOnce}
+                  {...revealOnMount}
                 >
                  
  <motion.span
@@ -126,7 +126,7 @@ const ServiceDetail = () => {
                     categoryCols === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"
                   }`}
                   variants={stagger(0.08)}
-                  {...revealOnce}
+                  {...revealOnMount}
                 >
                   {service.detail.whatWeDo.categories.map((category, index) => (
                     <motion.div
@@ -181,7 +181,7 @@ const ServiceDetail = () => {
               <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
                 <motion.div
                   variants={fadeUp}
-                  {...revealOnce}
+                  {...revealOnMount}
                   className="relative rounded-3xl overflow-hidden
                              bg-gradient-to-br from-[#232323] to-[#111111] p-6 sm:p-8 lg:p-9"
                 >
@@ -253,7 +253,7 @@ const ServiceDetail = () => {
                   <motion.div
                     className="lg:col-span-5"
                     variants={stagger(0.1)}
-                    {...revealOnce}
+                    {...revealOnMount}
                   >
                     <div className="lg:sticky lg:top-28">
                       <motion.span
@@ -312,7 +312,7 @@ const ServiceDetail = () => {
                   <motion.div
                     className="lg:col-span-7"
                     variants={stagger(0.12)}
-                    {...revealOnce}
+                    {...revealOnMount}
                   >
                     {service.detail.howWeWork.points && (
                     <ul className="divide-y divide-white/10">
@@ -424,7 +424,7 @@ const ServiceDetail = () => {
                 <motion.div
                   className="max-w-3xl mb-12 sm:mb-14"
                   variants={fadeUp}
-                  {...revealOnce}
+                  {...revealOnMount}
                 >
                   <span className="inline-flex items-center gap-2 rounded-full border border-[#bf1e2e]/20 bg-white/70 px-4 py-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#bf1e2e] backdrop-blur-sm">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
@@ -439,7 +439,7 @@ const ServiceDetail = () => {
                   <motion.div
                     className="max-w-4xl mb-10 sm:mb-12 space-y-4"
                     variants={stagger(0.1)}
-                    {...revealOnce}
+                    {...revealOnMount}
                   >
                     {service.detail.projectImpact.intro.map((paragraph) => (
                       <motion.p
@@ -454,7 +454,7 @@ const ServiceDetail = () => {
                 )}
 
                 {service.detail.projectImpact.benefits && (
-                  <motion.div variants={stagger(0.08)} {...revealOnce}>
+                  <motion.div variants={stagger(0.08)} {...revealOnMount}>
                     <motion.h3
                       variants={fadeUp}
                       className="text-fluid-h3 font-bold text-[#1C1C1C] mb-6"
@@ -501,7 +501,7 @@ const ServiceDetail = () => {
                 <motion.div
                   className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
                   variants={stagger(0.1)}
-                  {...revealOnce}
+                  {...revealOnMount}
                 >
                   {service.detail.projectImpact.outcomes.map((impact, index) => (
                     <motion.div
@@ -633,7 +633,7 @@ const ServiceDetail = () => {
           <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
             <motion.div
               variants={fadeUp}
-              {...revealOnce}
+              {...revealOnMount}
               className="relative overflow-hidden rounded-[1.75rem] sm:rounded-[2rem] bg-[#0B0B0B]"
             >
               {/* Client photograph as the backdrop */}
