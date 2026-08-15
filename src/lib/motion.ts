@@ -31,9 +31,15 @@ export const stagger = (staggerChildren = 0.12, delayChildren = 0): Variants => 
   show: { transition: { staggerChildren, delayChildren } },
 });
 
-/** Reveal once when the element scrolls into view. */
+/**
+ * Reveal once when the element scrolls into view.
+ *
+ * `amount` is deliberately small: tall blocks (a long list of points, a wide
+ * outcome grid) would otherwise sit at opacity 0 until a fifth of them had
+ * scrolled in, which reads as missing content.
+ */
 export const revealOnce = {
   initial: "hidden" as const,
   whileInView: "show" as const,
-  viewport: { once: true, amount: 0.2 },
+  viewport: { once: true, amount: 0.01, margin: "0px 0px -40px 0px" },
 };

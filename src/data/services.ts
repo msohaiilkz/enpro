@@ -12,6 +12,9 @@ import type { LucideIcon } from "lucide-react";
 import {
   BadgeCheck,
   Boxes,
+  Lightbulb,
+  Search,
+  Wrench,
   CalendarClock,
   Database,
   Layers,
@@ -44,14 +47,6 @@ import {
   Workflow,
 } from "lucide-react";
 
-// Banner artwork for each detail page
-import bannerStructural from "@/assets/banner-svc-structural.jpg";
-import bannerDesignReview from "@/assets/banner-svc-design-review.jpg";
-import bannerConstruction from "@/assets/banner-svc-construction.jpg";
-import bannerProject from "@/assets/banner-svc-project.jpg";
-import bannerEnvironmental from "@/assets/banner-svc-environmental.jpg";
-import bannerDigital from "@/assets/banner-svc-digital.jpg";
-
 // Photography used inside the detail pages
 import photoStructural from "@/assets/photo-structural.jpg";
 import photoDesignReview from "@/assets/photo-design-review.jpg";
@@ -67,15 +62,15 @@ import iconTensile from "@/assets/icons/cat-tensile.png";
 import iconWater from "@/assets/icons/cat-water.png";
 import iconAssessment from "@/assets/icons/cat-assessment.png";
 
-// Environmental & Social Advisory - client artwork, recoloured to the brand red
-import iconEnvSustainable from "@/assets/icons/env-sustainable.png";
-import iconEnvSafeguards from "@/assets/icons/env-safeguards.png";
-import iconEnvStakeholder from "@/assets/icons/env-stakeholder.png";
-import iconEnvPartner from "@/assets/icons/env-partner.png";
-import iconEnvIntegrated from "@/assets/icons/env-integrated.png";
-import iconEnvCompliance from "@/assets/icons/env-compliance.png";
-import iconEnvConfidence from "@/assets/icons/env-confidence.png";
-import iconEnvOutcomes from "@/assets/icons/env-outcomes.png";
+// Environmental & Social Advisory - the client's own green artwork
+import iconEnvSustainable from "@/assets/icons/green-sustainable.png";
+import iconEnvSafeguards from "@/assets/icons/green-safeguards.png";
+import iconEnvStakeholder from "@/assets/icons/green-stakeholder.png";
+import iconEnvPartner from "@/assets/icons/green-partner.png";
+import iconEnvIntegrated from "@/assets/icons/green-integrated.png";
+import iconEnvCompliance from "@/assets/icons/green-compliance.png";
+import iconEnvConfidence from "@/assets/icons/green-confidence.png";
+import iconEnvOutcomes from "@/assets/icons/green-outcomes.png";
 
 /** Either a supplied artwork file or a line icon from lucide. */
 export type ServiceIcon = string | LucideIcon;
@@ -109,7 +104,10 @@ export interface ServiceDetail {
   howWeWork: {
     intro: string[];
     points?: { icon: ServiceIcon; title: string; description: string }[];
-    focus?: { heading: string; items: string[] };
+    focus?: {
+      heading: string;
+      items: { icon?: ServiceIcon; text: string }[];
+    };
   };
   /**
    * Most documents list titled outcomes; the Digital Engineering document
@@ -128,7 +126,7 @@ export interface Service {
   description: string;
   /** Card artwork on the landing page */
   image: string;
-  /** Wide artwork for the top of the detail page */
+  /** Overrides the shared banner when the client supplied one for this service */
   banner?: string;
   detail?: ServiceDetail;
 }
@@ -140,7 +138,6 @@ export const SERVICES: Service[] = [
     description:
       "Delivering innovative structural solutions for high-rise buildings, bridges, industrial facilities, and critical infrastructure.",
     image: imgStructural,
-    banner: bannerStructural,
     detail: {
       tagline:
         "We design and engineer safe, efficient and resilient structural solutions across a wide range of structures and structural systems.",
@@ -296,7 +293,6 @@ export const SERVICES: Service[] = [
     description:
       "Optimizing engineering solutions through independent technical reviews, constructability assessment, and value-driven design improvements.",
     image: imgDesignReview,
-    banner: bannerDesignReview,
     detail: {
       tagline:
         "We provide independent engineering review and value engineering services that improve design quality, optimise project performance and support informed engineering decisions throughout the project lifecycle.",
@@ -366,11 +362,17 @@ export const SERVICES: Service[] = [
         focus: {
           heading: "Our approach focuses on",
           items: [
-            "Independent technical assessment",
-            "Practical, evidence-based recommendations",
-            "Collaborative engineering engagement",
-            "Balanced decisions that consider performance, cost and constructability",
-            "Delivering measurable engineering value",
+            { icon: Search, text: "Independent technical assessment" },
+            {
+              icon: Lightbulb,
+              text: "Practical, evidence-based recommendations",
+            },
+            { icon: Users, text: "Collaborative engineering engagement" },
+            {
+              icon: Scale,
+              text: "Balanced decisions that consider performance, cost and constructability",
+            },
+            { icon: TrendingUp, text: "Delivering measurable engineering value" },
           ],
         },
       },
@@ -410,7 +412,6 @@ export const SERVICES: Service[] = [
     description:
       "Managing project delivery through effective controls, contract administration, coordination, and governance practices.",
     image: imgProject,
-    banner: bannerProject,
     detail: {
       tagline:
         "Successful project delivery depends on effective planning, disciplined contract administration, and structured project controls. Enpro provides integrated Project & Contract Management services that strengthen project governance, improve coordination, manage risks, and support informed decision-making throughout the project lifecycle.",
@@ -594,7 +595,6 @@ export const SERVICES: Service[] = [
     description:
       "Providing technical guidance, shop drawing reviews, and engineering support throughout successful project execution.",
     image: imgConstruction,
-    banner: bannerConstruction,
     detail: {
       tagline:
         "We provide continued engineering support during construction, helping clients and project teams translate design intent into successful on-site delivery through timely technical advice and practical engineering solutions.",
@@ -653,10 +653,19 @@ export const SERVICES: Service[] = [
         focus: {
           heading: "Our approach focuses on",
           items: [
-            "Responsive engineering support during construction",
-            "Practical solutions to site engineering challenges",
-            "Close coordination with project stakeholders",
-            "Maintaining design intent throughout project delivery",
+            {
+              icon: LifeBuoy,
+              text: "Responsive engineering support during construction",
+            },
+            {
+              icon: Wrench,
+              text: "Practical solutions to site engineering challenges",
+            },
+            { icon: Users, text: "Close coordination with project stakeholders" },
+            {
+              icon: ShieldCheck,
+              text: "Maintaining design intent throughout project delivery",
+            },
           ],
         },
       },
@@ -696,7 +705,6 @@ export const SERVICES: Service[] = [
     description:
       "Supporting responsible infrastructure through environmental stewardship, social inclusion, and international safeguard compliance.",
     image: imgEnvironmental,
-    banner: bannerEnvironmental,
     detail: {
       tagline:
         "Today's infrastructure projects demand more than engineering excellence. They require environmental stewardship, social responsibility, meaningful stakeholder engagement, and compliance with national and international development requirements. Enpro strengthens multidisciplinary project teams through integrated Environmental & Social Advisory services, supporting sustainable, compliant, and resilient infrastructure delivery.",
@@ -782,10 +790,22 @@ export const SERVICES: Service[] = [
         focus: {
           heading: "Our approach focuses on",
           items: [
-            "Integrating engineering, environmental, and social expertise",
-            "Strengthening multidisciplinary project teams through specialist collaboration",
-            "Supporting compliance with national and international development requirements",
-            "Delivering sustainable, resilient, and inclusive infrastructure",
+            {
+              icon: iconEnvIntegrated,
+              text: "Integrating engineering, environmental, and social expertise",
+            },
+            {
+              icon: iconEnvStakeholder,
+              text: "Strengthening multidisciplinary project teams through specialist collaboration",
+            },
+            {
+              icon: iconEnvCompliance,
+              text: "Supporting compliance with national and international development requirements",
+            },
+            {
+              icon: iconEnvOutcomes,
+              text: "Delivering sustainable, resilient, and inclusive infrastructure",
+            },
           ],
         },
       },
@@ -825,7 +845,6 @@ export const SERVICES: Service[] = [
     description:
       "Applying BIM and digital engineering solutions for coordinated, efficient, and technology-enabled project delivery.",
     image: imgDigital,
-    banner: bannerDigital,
     detail: {
       tagline:
         "Digital engineering is transforming the way complex infrastructure and building projects are planned, coordinated, and delivered. At Enpro, we combine engineering expertise with advanced digital workflows to improve collaboration, reduce coordination risks, and support more efficient project delivery.",

@@ -9,8 +9,12 @@ interface Crumb {
 interface PageBannerProps {
   image: string;
   alt: string;
-  /** Set over the artwork; the per-service banners carry no lettering */
+  /** Set over the artwork when it carries no lettering of its own */
   title?: string;
+  /** "dark" suits light artwork: no scrim, dark type */
+  titleTone?: "light" | "dark";
+  /** Colour of the rule under the title */
+  accent?: string;
   crumbs: Crumb[];
 }
 
@@ -18,7 +22,14 @@ interface PageBannerProps {
  * Banner + breadcrumb used at the top of the detail pages, matching the
  * structure of the reference site the client shared.
  */
-const PageBanner = ({ image, alt, title, crumbs }: PageBannerProps) => (
+const PageBanner = ({
+  image,
+  alt,
+  title,
+  titleTone = "light",
+  accent = "#bf1e2e",
+  crumbs,
+}: PageBannerProps) => (
   <section className="w-full">
     {/* Fixed-height strip, the same treatment the reference site uses for its
         page banners. */}
@@ -31,18 +42,25 @@ const PageBanner = ({ image, alt, title, crumbs }: PageBannerProps) => (
 
       {title && (
         <>
-          {/* Scrim so the type stays readable over any artwork */}
-          <span
-            className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B]/85 via-[#0B0B0B]/55 to-[#0B0B0B]/10"
-            aria-hidden
-          />
+          {titleTone === "light" && (
+            /* Scrim so the type stays readable over darker artwork */
+            <span
+              className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B]/85 via-[#0B0B0B]/55 to-[#0B0B0B]/10"
+              aria-hidden
+            />
+          )}
           <div className="absolute inset-0 flex items-center">
             <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-              <h1 className="text-fluid-h2 font-bold text-white max-w-3xl">
+              <h1
+                className={`text-fluid-h2 font-bold max-w-md sm:max-w-lg ${
+                  titleTone === "dark" ? "text-[#1C1C1C]" : "text-white"
+                }`}
+              >
                 {title}
               </h1>
               <span
-                className="mt-4 block h-[3px] w-14 bg-[#bf1e2e]"
+                className="mt-4 block h-[3px] w-14"
+                style={{ backgroundColor: accent }}
                 aria-hidden
               />
             </div>

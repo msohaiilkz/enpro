@@ -55,9 +55,8 @@ const ServiceDetail = () => {
       <TopNavbar />
 
       <PageBanner
-        image={service?.banner ?? bannerImage}
-        alt={service ? `${service.title} — Enpro Consultants` : "Enpro Consultants services"}
-        title={service ? service.title : "Services"}
+        image={bannerImage}
+        alt="Enpro Consultants services"
         crumbs={crumbs}
       />
 
@@ -69,7 +68,7 @@ const ServiceDetail = () => {
         ) : (
           <>
             {/* ================= 01 - What We Do ================= */}
-            <section className="min-h-[100dvh] flex items-center py-10 sm:py-12 lg:py-14 bg-white">
+            <section className="py-14 sm:py-18 lg:py-24 bg-white">
               <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
                 <motion.div
                   className="mb-7 sm:mb-9"
@@ -83,14 +82,14 @@ const ServiceDetail = () => {
                                text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#bf1e2e]"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                    Service Overview
+                    {service.title}
                   </motion.span>
-                  <motion.h2
+                  <motion.h1
                     variants={fadeUp}
                     className="mt-5 text-fluid-h2 font-bold text-[#1C1C1C]"
                   >
                     What We <span className="text-[#bf1e2e]">Do</span>
-                  </motion.h2>
+                  </motion.h1>
                    <motion.span
                     variants={fadeUp}
                     className="block h-[3px] w-14 bg-[#bf1e2e] mt-4 mb-4"
@@ -139,12 +138,11 @@ const ServiceDetail = () => {
                           : ""
                       }`}
                     >
-                      <div className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#fbe5e7] flex items-center justify-center
-                                      group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-[#bf1e2e]/15
-                                      transition-all duration-500">
+                      <div className="flex-shrink-0 flex items-start justify-center
+                                      group-hover:scale-110 transition-transform duration-500">
                         <ServiceIconMark
                           icon={category.icon}
-                          className="w-6 h-6 sm:w-7 sm:h-7 object-contain text-[#bf1e2e]"
+                          className="w-10 h-10 sm:w-11 sm:h-11 object-contain text-[#bf1e2e]"
                         />
                       </div>
                       <div>
@@ -229,29 +227,9 @@ const ServiceDetail = () => {
               </div>
             </section>
 
-            {/* ---- Service photograph, given the full width ---- */}
-            {service.detail.photo && (
-              <section className="pb-10 sm:pb-12 bg-white">
-                <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-                  <motion.div
-                    variants={scaleIn}
-                    {...revealOnce}
-                    className="relative overflow-hidden rounded-3xl ring-1 ring-black/[0.06] shadow-lg"
-                  >
-                    <img
-                      src={service.detail.photo}
-                      alt={`${service.title} in practice`}
-                      loading="lazy"
-                      className="w-full h-[clamp(220px,42vh,460px)] object-cover object-center"
-                    />
-                  </motion.div>
-                </div>
-              </section>
-            )}
-
             {/* ================= 02 - How We Work ================= */}
             {/* Deliberately a different concept: dark band, sticky intro, numbered rows */}
-            <section className="relative min-h-[100dvh] flex items-center py-14 sm:py-16 lg:py-20 bg-[#0B0B0B] text-white overflow-hidden">
+            <section className="relative py-14 sm:py-18 lg:py-24 bg-[#0B0B0B] text-white overflow-hidden">
               <div
                 className="absolute inset-0 opacity-[0.16] pointer-events-none"
                 style={{
@@ -308,6 +286,25 @@ const ServiceDetail = () => {
                           {paragraph}
                         </motion.p>
                       ))}
+
+                      {/* The service's own photograph, under the copy */}
+                      {service.detail.photo && (
+                        <motion.div
+                          variants={scaleIn}
+                          className="relative mt-7 overflow-hidden rounded-2xl ring-1 ring-white/10"
+                        >
+                          <img
+                            src={service.detail.photo}
+                            alt={`${service.title} in practice`}
+                            loading="lazy"
+                            className="w-full h-[clamp(200px,32vh,360px)] object-cover object-center"
+                          />
+                          <span
+                            className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B]/45 to-transparent"
+                            aria-hidden
+                          />
+                        </motion.div>
+                      )}
 
                     </div>
                   </motion.div>
@@ -371,7 +368,7 @@ const ServiceDetail = () => {
                         <ul className="divide-y divide-white/10">
                           {service.detail.howWeWork.focus.items.map((item) => (
                             <motion.li
-                              key={item}
+                              key={item.text}
                               variants={fadeUp}
                               className="group relative py-4 sm:py-5 first:pt-0 last:pb-0"
                             >
@@ -383,19 +380,24 @@ const ServiceDetail = () => {
                               />
                               <div className="flex items-center gap-4 sm:gap-5 transition-transform duration-500 group-hover:translate-x-4">
                                 <span
-                                  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl
-                                             border border-white/10 bg-white/[0.07]
-                                             group-hover:border-[#bf1e2e]/50 group-hover:bg-[#bf1e2e]/15
-                                             transition-colors duration-500"
+                                  className="flex flex-shrink-0 items-center justify-center
+                                             group-hover:scale-110 transition-transform duration-500"
                                   aria-hidden
                                 >
-                                  <Check
-                                    className="h-4 w-4 text-[#bf1e2e]"
-                                    strokeWidth={2}
-                                  />
+                                  {item.icon ? (
+                                    <ServiceIconMark
+                                      icon={item.icon}
+                                      className="h-9 w-9 object-contain text-[#bf1e2e]"
+                                    />
+                                  ) : (
+                                    <Check
+                                      className="h-5 w-5 text-[#bf1e2e]"
+                                      strokeWidth={2}
+                                    />
+                                  )}
                                 </span>
                                 <p className="text-gray-300 text-fluid-body group-hover:text-white transition-colors duration-500">
-                                  {item}
+                                  {item.text}
                                 </p>
                               </div>
                             </motion.li>
@@ -412,7 +414,7 @@ const ServiceDetail = () => {
             {/* Third concept: no boxes at all. Outlined numerals on a stepped
                 baseline, separated by hairlines - deliberately unlike the icon
                 grid in 01 and the dark rows in 02. */}
-            <section className="relative min-h-[100dvh] flex items-center py-14 sm:py-16 lg:py-20 bg-[#fbe5e7] overflow-hidden">
+            <section className="relative py-14 sm:py-18 lg:py-24 bg-[#fbe5e7] overflow-hidden">
               <div
                 className="absolute -bottom-40 -left-24 w-[32rem] h-[32rem] rounded-full bg-white/70 blur-[130px] pointer-events-none"
                 aria-hidden
@@ -546,7 +548,7 @@ const ServiceDetail = () => {
             {/* ================= Other services ================= */}
             {/* An index list rather than chips: each row reveals that service's
                 artwork on hover and sweeps in the brand colour. */}
-            <section className="min-h-[100dvh] flex items-center py-14 sm:py-16 lg:py-20 bg-white border-t border-gray-100">
+            <section className="py-14 sm:py-18 lg:py-24 bg-white border-t border-gray-100">
               <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
                 <div className="mb-6 sm:mb-8">
                   <span className="inline-flex items-center gap-2 rounded-full border border-[#bf1e2e]/20 bg-[#fbe5e7] px-4 py-1.5
