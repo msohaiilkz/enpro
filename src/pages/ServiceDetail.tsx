@@ -466,23 +466,29 @@ const ServiceDetail = () => {
                       {service.detail.projectImpact.benefits.items.map(
                         (item) => (
                           <motion.li
-                            key={item}
+                            key={item.text}
                             variants={fadeUp}
-                            className="group flex items-start gap-3.5 border-t border-[#bf1e2e]/15 pt-4"
+                            className="group flex items-start gap-4 border-t border-[#bf1e2e]/15 pt-4"
                           >
                             <span
-                              className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg
-                                         bg-white shadow-[0_2px_10px_rgba(191,30,46,0.10)]
+                              className="flex flex-shrink-0 items-center justify-center
                                          group-hover:scale-110 transition-transform duration-500"
                               aria-hidden
                             >
-                              <Check
-                                className="h-4 w-4 text-[#bf1e2e]"
-                                strokeWidth={2.5}
-                              />
+                              {item.icon ? (
+                                <ServiceIconMark
+                                  icon={item.icon}
+                                  className="h-8 w-8 object-contain text-[#bf1e2e]"
+                                />
+                              ) : (
+                                <Check
+                                  className="h-5 w-5 text-[#bf1e2e]"
+                                  strokeWidth={2.5}
+                                />
+                              )}
                             </span>
                             <p className="text-gray-700 text-fluid-body">
-                              {item}
+                              {item.text}
                             </p>
                           </motion.li>
                         ),

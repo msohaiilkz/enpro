@@ -116,7 +116,10 @@ export interface ServiceDetail {
   projectImpact: {
     intro?: string[];
     outcomes?: { icon: ServiceIcon; title: string; description: string }[];
-    benefits?: { heading: string; items: string[] };
+    benefits?: {
+      heading: string;
+      items: { icon?: ServiceIcon; text: string }[];
+    };
   };
 }
 
@@ -951,12 +954,30 @@ export const SERVICES: Service[] = [
         benefits: {
           heading: "Clients benefit from",
           items: [
-            "Better multidisciplinary coordination and communication",
-            "Reduced design conflicts and improved constructability",
-            "More efficient engineering workflows and project delivery",
-            "Reliable digital information for informed decision-making",
-            "Additional technical capacity during peak project demands",
-            "Improved integration between design, fabrication, construction, and asset information throughout the project lifecycle",
+            {
+              icon: Network,
+              text: "Better multidisciplinary coordination and communication",
+            },
+            {
+              icon: ShieldCheck,
+              text: "Reduced design conflicts and improved constructability",
+            },
+            {
+              icon: Workflow,
+              text: "More efficient engineering workflows and project delivery",
+            },
+            {
+              icon: Database,
+              text: "Reliable digital information for informed decision-making",
+            },
+            {
+              icon: Layers,
+              text: "Additional technical capacity during peak project demands",
+            },
+            {
+              icon: Boxes,
+              text: "Improved integration between design, fabrication, construction, and asset information throughout the project lifecycle",
+            },
           ],
         },
       },
