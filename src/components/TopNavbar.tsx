@@ -224,9 +224,8 @@ const TopNavbar = () => {
             className="w-full flex items-center justify-center rounded-xl
                        border border-[#bf1e2e]/25 bg-[#fbe5e7] px-4 py-3"
           >
-            <p className="text-[#bf1e2e] text-[11px] font-bold uppercase tracking-[0.12em] text-center leading-relaxed">
-              <span className="block">Engineering Complex Structures.</span>
-              <span className="block">Delivering Certainty.</span>
+            <p className="text-[#bf1e2e] text-[11px] font-bold uppercase tracking-[0.22em] text-center whitespace-nowrap">
+              Partners in Performance
             </p>
           </div>
         </div>
