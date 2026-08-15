@@ -1,33 +1,27 @@
 import { useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Compass,
-  Gauge,
-  HardHat,
-  Mail,
-  Settings,
-  ShieldCheck,
-  Sliders,
-  Timer,
-  Workflow,
-} from "lucide-react";
-import { fadeUp, stagger, revealOnce } from "@/lib/motion";
+import { ArrowRight, Check, Mail, Settings } from "lucide-react";
+import { fadeUp, scaleIn, stagger, revealOnce } from "@/lib/motion";
+import type { ServiceIcon } from "@/data/services";
 
 /**
- * Project Impact icons, in the order the outcomes are listed:
- * Safety & Integrity, Efficiency & Value, Buildability & Delivery,
- * Performance & Longevity.
+ * Each service supplies its own icons: either an artwork file from the client
+ * or a lucide component.
  */
-const IMPACT_ICONS = [ShieldCheck, Gauge, HardHat, Timer];
-
-/**
- * How We Work icons, in the order the points are listed:
- * Engineering with Purpose, Integrated from the Start,
- * Optimised for the Long Term.
- */
-const HOW_WE_WORK_ICONS = [Compass, Workflow, Sliders];
+const ServiceIconMark = ({
+  icon,
+  className,
+}: {
+  icon: ServiceIcon;
+  className?: string;
+}) => {
+  if (typeof icon === "string") {
+    return <img src={icon} alt="" aria-hidden="true" className={className} />;
+  }
+  const Icon = icon;
+  return <Icon className={className} strokeWidth={1.5} aria-hidden />;
+};
 
 import TopNavbar from "@/components/TopNavbar";
 import Footer from "@/components/Footer";
@@ -52,13 +46,18 @@ const ServiceDetail = () => {
     { label: service ? service.title : "Service" },
   ];
 
+  // Six categories read best in three columns, four in two.
+  const categoryCount = service?.detail?.whatWeDo.categories.length ?? 0;
+  const categoryCols = categoryCount % 3 === 0 ? 3 : 2;
+
   return (
     <div className="min-h-screen bg-white w-full overflow-x-hidden">
       <TopNavbar />
 
       <PageBanner
-        image={bannerImage}
-        alt="Enpro Consultants services"
+        image={service?.banner ?? bannerImage}
+        alt={service ? `${service.title} — Enpro Consultants` : "Enpro Consultants services"}
+        title={service ? service.title : "Services"}
         crumbs={crumbs}
       />
 
@@ -72,7 +71,11 @@ const ServiceDetail = () => {
             {/* ================= 01 - What We Do ================= */}
             <section className="min-h-[100dvh] flex items-center py-10 sm:py-12 lg:py-14 bg-white">
               <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-                <motion.div variants={stagger(0.1)} {...revealOnce}>
+                <motion.div
+                  className="mb-7 sm:mb-9"
+                  variants={stagger(0.1)}
+                  {...revealOnce}
+                >
                  
  <motion.span
                     variants={fadeUp}
@@ -80,41 +83,49 @@ const ServiceDetail = () => {
                                text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#bf1e2e]"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                     
-                     {service.title}
+                    Service Overview
                   </motion.span>
-                  <motion.h1
+                  <motion.h2
                     variants={fadeUp}
                     className="mt-5 text-fluid-h2 font-bold text-[#1C1C1C]"
                   >
                     What We <span className="text-[#bf1e2e]">Do</span>
-                  </motion.h1>
+                  </motion.h2>
                    <motion.span
                     variants={fadeUp}
                     className="block h-[3px] w-14 bg-[#bf1e2e] mt-4 mb-4"
                   />
                   
 
-                  <motion.p
-                    variants={fadeUp}
-                    className="mt-3 text-gray-600 text-fluid-body max-w-2xl"
-                  >
-                    {service.detail.tagline}
-                  </motion.p>
+                  {/* Tagline and intro read as one block, so they are set in
+                      the same style rather than two disconnected lines */}
+                  <div className="max-w-4xl space-y-3">
+                    {service.detail.tagline && (
+                      <motion.p
+                        variants={fadeUp}
+                        className="text-gray-600 text-fluid-body text-justify"
+                      >
+                        {service.detail.tagline}
+                      </motion.p>
+                    )}
 
-                 
-
-                  <motion.p
-                    variants={fadeUp}
-                    className="text-[#1C1C1C] text-fluid-body font-medium max-w-4xl mb-6 sm:mb-7 text-justify"
-                  >
-                    {service.detail.whatWeDo.intro}
-                  </motion.p>
+                    {service.detail.whatWeDo.intro?.map((paragraph) => (
+                      <motion.p
+                        key={paragraph.slice(0, 40)}
+                        variants={fadeUp}
+                        className="text-gray-600 text-fluid-body text-justify"
+                      >
+                        {paragraph}
+                      </motion.p>
+                    ))}
+                  </div>
                 </motion.div>
 
-                {/* 3 x 2 category grid */}
+                {/* Category grid - three columns for six items, two for four */}
                 <motion.div
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-5 gap-x-6 lg:gap-x-8"
+                  className={`grid grid-cols-1 md:grid-cols-2 gap-y-5 gap-x-6 lg:gap-x-8 ${
+                    categoryCols === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"
+                  }`}
                   variants={stagger(0.08)}
                   {...revealOnce}
                 >
@@ -123,23 +134,28 @@ const ServiceDetail = () => {
                       key={category.number}
                       variants={fadeUp}
                       className={`group flex gap-4 sm:gap-5 lg:pr-8 ${
-                        index % 3 !== 2 ? "lg:border-r lg:border-gray-200" : ""
+                        (index + 1) % categoryCols !== 0
+                          ? "lg:border-r lg:border-gray-200"
+                          : ""
                       }`}
                     >
                       <div className="flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#fbe5e7] flex items-center justify-center
                                       group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-[#bf1e2e]/15
                                       transition-all duration-500">
-                        <img
-                          src={category.icon}
-                          alt=""
-                          aria-hidden="true"
-                          className="w-6 h-6 sm:w-7 sm:h-7 object-contain"
+                        <ServiceIconMark
+                          icon={category.icon}
+                          className="w-6 h-6 sm:w-7 sm:h-7 object-contain text-[#bf1e2e]"
                         />
                       </div>
                       <div>
                         <h2 className="text-fluid-h3 font-bold text-[#1C1C1C] uppercase tracking-wide mb-2">
                           {category.title}
                         </h2>
+                        {category.description && (
+                          <p className="text-gray-500 text-[clamp(0.75rem,0.35vw+0.25vh,0.875rem)] leading-[1.5] mb-3">
+                            {category.description}
+                          </p>
+                        )}
                         <ul className="space-y-0.5">
                           {category.items.map((item) => (
                             <li
@@ -186,7 +202,8 @@ const ServiceDetail = () => {
                         />
                       </div>
                       <p className="text-white font-semibold uppercase tracking-widest text-[11px] sm:text-xs">
-                        Our Engineering Capability
+                        {service.detail.whatWeDo.capabilityLabel ??
+                          "Our Engineering Capability"}
                       </p>
                     </div>
 
@@ -211,6 +228,26 @@ const ServiceDetail = () => {
                 </motion.div>
               </div>
             </section>
+
+            {/* ---- Service photograph, given the full width ---- */}
+            {service.detail.photo && (
+              <section className="pb-10 sm:pb-12 bg-white">
+                <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+                  <motion.div
+                    variants={scaleIn}
+                    {...revealOnce}
+                    className="relative overflow-hidden rounded-3xl ring-1 ring-black/[0.06] shadow-lg"
+                  >
+                    <img
+                      src={service.detail.photo}
+                      alt={`${service.title} in practice`}
+                      loading="lazy"
+                      className="w-full h-[clamp(220px,42vh,460px)] object-cover object-center"
+                    />
+                  </motion.div>
+                </div>
+              </section>
+            )}
 
             {/* ================= 02 - How We Work ================= */}
             {/* Deliberately a different concept: dark band, sticky intro, numbered rows */}
@@ -262,31 +299,16 @@ const ServiceDetail = () => {
                         className="block h-[3px] w-16 bg-[#bf1e2e] mt-5 mb-6"
                       />
 
-                      <motion.p
-                        variants={fadeUp}
-                        className="text-gray-400 text-fluid-body"
-                      >
-                        {service.detail.howWeWork.intro}
-                      </motion.p>
-
-                      {service.detail.photo && (
-                        <motion.div
+                      {service.detail.howWeWork.intro.map((paragraph) => (
+                        <motion.p
+                          key={paragraph.slice(0, 40)}
                           variants={fadeUp}
-                          className="relative mt-7 overflow-hidden rounded-2xl ring-1 ring-white/10"
+                          className="text-gray-400 text-fluid-body mb-4 last:mb-0"
                         >
-                          <img
-                            src={service.detail.photo}
-                            alt=""
-                            aria-hidden="true"
-                            loading="lazy"
-                            className="w-full h-[clamp(140px,20vh,220px)] object-cover object-center"
-                          />
-                          <span
-                            className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B]/70 to-transparent"
-                            aria-hidden
-                          />
-                        </motion.div>
-                      )}
+                          {paragraph}
+                        </motion.p>
+                      ))}
+
                     </div>
                   </motion.div>
 
@@ -295,8 +317,9 @@ const ServiceDetail = () => {
                     variants={stagger(0.12)}
                     {...revealOnce}
                   >
+                    {service.detail.howWeWork.points && (
                     <ul className="divide-y divide-white/10">
-                      {service.detail.howWeWork.points.map((point, index) => (
+                      {service.detail.howWeWork.points.map((point) => (
                         <motion.li
                           key={point.title}
                           variants={fadeUp}
@@ -316,18 +339,10 @@ const ServiceDetail = () => {
                                          transition-colors duration-500"
                               aria-hidden
                             >
-                              {(() => {
-                                const Icon =
-                                  HOW_WE_WORK_ICONS[
-                                    index % HOW_WE_WORK_ICONS.length
-                                  ];
-                                return (
-                                  <Icon
-                                    className="h-6 w-6 sm:h-7 sm:w-7 text-[#bf1e2e]"
-                                    strokeWidth={1.5}
-                                  />
-                                );
-                              })()}
+                              <ServiceIconMark
+                                icon={point.icon}
+                                className="h-6 w-6 sm:h-7 sm:w-7 object-contain text-[#bf1e2e]"
+                              />
                             </span>
                             <div>
                               <h3 className="text-fluid-h3 font-bold mb-2.5 group-hover:text-[#bf1e2e] transition-colors duration-500">
@@ -341,6 +356,53 @@ const ServiceDetail = () => {
                         </motion.li>
                       ))}
                     </ul>
+                    )}
+
+                    {/* Documents that close on a short list instead of titled points */}
+                    {service.detail.howWeWork.focus && (
+                      <div>
+                        <motion.h3
+                          variants={fadeUp}
+                          className="text-fluid-h3 font-bold mb-5 sm:mb-6"
+                        >
+                          {service.detail.howWeWork.focus.heading}
+                        </motion.h3>
+
+                        <ul className="divide-y divide-white/10">
+                          {service.detail.howWeWork.focus.items.map((item) => (
+                            <motion.li
+                              key={item}
+                              variants={fadeUp}
+                              className="group relative py-4 sm:py-5 first:pt-0 last:pb-0"
+                            >
+                              <span
+                                className="absolute left-0 top-4 bottom-4 w-[3px] rounded-full bg-[#bf1e2e]
+                                           origin-top scale-y-0 group-hover:scale-y-100
+                                           transition-transform duration-500"
+                                aria-hidden
+                              />
+                              <div className="flex items-center gap-4 sm:gap-5 transition-transform duration-500 group-hover:translate-x-4">
+                                <span
+                                  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl
+                                             border border-white/10 bg-white/[0.07]
+                                             group-hover:border-[#bf1e2e]/50 group-hover:bg-[#bf1e2e]/15
+                                             transition-colors duration-500"
+                                  aria-hidden
+                                >
+                                  <Check
+                                    className="h-4 w-4 text-[#bf1e2e]"
+                                    strokeWidth={2}
+                                  />
+                                </span>
+                                <p className="text-gray-300 text-fluid-body group-hover:text-white transition-colors duration-500">
+                                  {item}
+                                </p>
+                              </div>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </motion.div>
                 </div>
               </div>
@@ -371,12 +433,69 @@ const ServiceDetail = () => {
                   </h2>
                 </motion.div>
 
+                {service.detail.projectImpact.intro && (
+                  <motion.div
+                    className="max-w-4xl mb-10 sm:mb-12 space-y-4"
+                    variants={stagger(0.1)}
+                    {...revealOnce}
+                  >
+                    {service.detail.projectImpact.intro.map((paragraph) => (
+                      <motion.p
+                        key={paragraph.slice(0, 40)}
+                        variants={fadeUp}
+                        className="text-[#1C1C1C] text-fluid-body font-medium text-justify"
+                      >
+                        {paragraph}
+                      </motion.p>
+                    ))}
+                  </motion.div>
+                )}
+
+                {service.detail.projectImpact.benefits && (
+                  <motion.div variants={stagger(0.08)} {...revealOnce}>
+                    <motion.h3
+                      variants={fadeUp}
+                      className="text-fluid-h3 font-bold text-[#1C1C1C] mb-6"
+                    >
+                      {service.detail.projectImpact.benefits.heading}
+                    </motion.h3>
+
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                      {service.detail.projectImpact.benefits.items.map(
+                        (item) => (
+                          <motion.li
+                            key={item}
+                            variants={fadeUp}
+                            className="group flex items-start gap-3.5 border-t border-[#bf1e2e]/15 pt-4"
+                          >
+                            <span
+                              className="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg
+                                         bg-white shadow-[0_2px_10px_rgba(191,30,46,0.10)]
+                                         group-hover:scale-110 transition-transform duration-500"
+                              aria-hidden
+                            >
+                              <Check
+                                className="h-4 w-4 text-[#bf1e2e]"
+                                strokeWidth={2.5}
+                              />
+                            </span>
+                            <p className="text-gray-700 text-fluid-body">
+                              {item}
+                            </p>
+                          </motion.li>
+                        ),
+                      )}
+                    </ul>
+                  </motion.div>
+                )}
+
+                {service.detail.projectImpact.outcomes && (
                 <motion.div
                   className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
                   variants={stagger(0.1)}
                   {...revealOnce}
                 >
-                  {service.detail.projectImpact.map((impact, index) => (
+                  {service.detail.projectImpact.outcomes.map((impact, index) => (
                     <motion.div
                       key={impact.title}
                       variants={fadeUp}
@@ -398,15 +517,10 @@ const ServiceDetail = () => {
                                    transition-all duration-500"
                         aria-hidden
                       >
-                        {(() => {
-                          const Icon = IMPACT_ICONS[index % IMPACT_ICONS.length];
-                          return (
-                            <Icon
-                              className="h-7 w-7 text-[#bf1e2e]"
-                              strokeWidth={1.5}
-                            />
-                          );
-                        })()}
+                        <ServiceIconMark
+                          icon={impact.icon}
+                          className="h-7 w-7 object-contain text-[#bf1e2e]"
+                        />
                       </span>
 
                       <h3 className="text-fluid-h3 font-bold text-[#1C1C1C] mb-3 leading-snug">
@@ -425,6 +539,7 @@ const ServiceDetail = () => {
                     </motion.div>
                   ))}
                 </motion.div>
+                )}
               </div>
             </section>
 
@@ -598,9 +713,9 @@ const ComingSoonState = ({
       <p className="text-[#bf1e2e] font-semibold uppercase tracking-widest text-xs sm:text-sm mb-3">
         Service
       </p>
-      <h1 className="text-fluid-h2 font-bold text-[#1C1C1C] mb-5">
+      <h2 className="text-fluid-h2 font-bold text-[#1C1C1C] mb-5">
         {title}
-      </h1>
+      </h2>
       <span className="block h-[3px] w-16 bg-[#bf1e2e] mx-auto mb-7" />
       <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-8">
         {description}
@@ -616,9 +731,9 @@ const ComingSoonState = ({
 const NotFoundState = () => (
   <section className="py-16 sm:py-24 bg-white">
     <div className="w-full max-w-3xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
-      <h1 className="text-fluid-h2 font-bold text-[#1C1C1C] mb-5">
+      <h2 className="text-fluid-h2 font-bold text-[#1C1C1C] mb-5">
         Service not found
-      </h1>
+      </h2>
       <p className="text-gray-600 text-sm sm:text-base mb-8">
         The service you are looking for is not available.
       </p>

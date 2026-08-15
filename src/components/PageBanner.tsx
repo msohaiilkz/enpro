@@ -9,6 +9,8 @@ interface Crumb {
 interface PageBannerProps {
   image: string;
   alt: string;
+  /** Set over the artwork; the per-service banners carry no lettering */
+  title?: string;
   crumbs: Crumb[];
 }
 
@@ -16,17 +18,37 @@ interface PageBannerProps {
  * Banner + breadcrumb used at the top of the detail pages, matching the
  * structure of the reference site the client shared.
  */
-const PageBanner = ({ image, alt, crumbs }: PageBannerProps) => (
+const PageBanner = ({ image, alt, title, crumbs }: PageBannerProps) => (
   <section className="w-full">
     {/* Fixed-height strip, the same treatment the reference site uses for its
-        page banners. The artwork's own title sits mid-height, so a centred crop
-        keeps it visible at every width. */}
+        page banners. */}
     <div className="relative w-full bg-[#f7f7f7] overflow-hidden">
       <img
         src={image}
         alt={alt}
-        className="block w-full h-[150px] sm:h-[210px] lg:h-[280px] object-cover object-center"
+        className="block w-full h-[210px] sm:h-[300px] lg:h-[400px] xl:h-[440px] object-cover object-center"
       />
+
+      {title && (
+        <>
+          {/* Scrim so the type stays readable over any artwork */}
+          <span
+            className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B]/85 via-[#0B0B0B]/55 to-[#0B0B0B]/10"
+            aria-hidden
+          />
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+              <h1 className="text-fluid-h2 font-bold text-white max-w-3xl">
+                {title}
+              </h1>
+              <span
+                className="mt-4 block h-[3px] w-14 bg-[#bf1e2e]"
+                aria-hidden
+              />
+            </div>
+          </div>
+        </>
+      )}
     </div>
 
     <nav

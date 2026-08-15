@@ -91,6 +91,7 @@ const AboutUs = () => {
       <PageBanner
         image={bannerImage}
         alt="About Us — Enpro Consultants"
+        title="About Us"
         crumbs={[{ label: "Home", to: "/" }, { label: "About Us" }]}
       />
 
@@ -126,12 +127,12 @@ const AboutUs = () => {
                 variants={stagger(0.1)}
                 {...revealOnce}
               >
-                <motion.h1
+                <motion.h2
                   variants={fadeUp}
                   className="text-fluid-h2 font-bold text-[#1C1C1C]"
                 >
                   About <span className="text-[#bf1e2e]">Enpro</span>
-                </motion.h1>
+                </motion.h2>
 
                 <motion.span
                   variants={fadeUp}
