@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Mail, Settings } from "lucide-react";
-import { fadeUp, scaleIn, stagger, revealOnMount } from "@/lib/motion";
+import { fadeUp, scaleIn, stagger, revealOnce } from "@/lib/motion";
 import type { ServiceIcon } from "@/data/services";
 
 /**
@@ -27,7 +27,7 @@ import TopNavbar from "@/components/TopNavbar";
 import Footer from "@/components/Footer";
 import PageBanner from "@/components/PageBanner";
 import ScrollToTop from "@/components/ScrollToTop";
-import bannerImage from "@/assets/banner-services.jpeg";
+import bannerImage from "@/assets/banner-service-default.jpg";
 import ctaImage from "@/assets/contact-enpro.jpeg";
 import { SERVICES, getServiceBySlug } from "@/data/services";
 
@@ -50,13 +50,40 @@ const ServiceDetail = () => {
   const categoryCount = service?.detail?.whatWeDo.categories.length ?? 0;
   const categoryCols = categoryCount % 3 === 0 ? 3 : 2;
 
+  // Accent theme: the environmental page runs green, everything else brand red.
+  const accent = service?.accent ?? "#bf1e2e";
+  const accentDark = service?.accentDark ?? "#961a27";
+  const themeVars = {
+    "--accent": accent,
+    "--accent-dark": accentDark,
+    "--accent-light": service?.accent ? accent : "#e03347",
+    "--accent-10": accent + "1A",
+    "--accent-15": accent + "26",
+    "--accent-20": accent + "33",
+    "--accent-25": accent + "40",
+    "--accent-30": accent + "4D",
+    "--accent-35": accent + "59",
+    "--accent-40": accent + "66",
+    "--accent-50": accent + "80",
+  } as React.CSSProperties;
+
   return (
-    <div className="min-h-screen bg-white w-full overflow-x-hidden">
+    <div
+      className="min-h-screen bg-white w-full overflow-x-hidden"
+      style={themeVars}
+    >
       <TopNavbar />
 
       <PageBanner
-        image={bannerImage}
-        alt="Enpro Consultants services"
+        image={service?.banner ?? bannerImage}
+        alt={
+          service
+            ? `${service.title} — Enpro Consultants`
+            : "Enpro Consultants services"
+        }
+        title={service ? service.title : "Services"}
+        titleTone="dark"
+        accent={accent}
         crumbs={crumbs}
       />
 
@@ -73,26 +100,17 @@ const ServiceDetail = () => {
                 <motion.div
                   className="mb-7 sm:mb-9"
                   variants={stagger(0.1)}
-                  {...revealOnMount}
+                  {...revealOnce}
                 >
-                 
- <motion.span
+                                   <motion.h1
                     variants={fadeUp}
-                    className="inline-flex items-center gap-2 rounded-full border border-[#bf1e2e]/20 bg-[#fbe5e7] px-4 py-1.5
-                               text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#bf1e2e]"
+                    className="text-fluid-h2 font-bold text-[#1C1C1C]"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                    {service.title}
-                  </motion.span>
-                  <motion.h1
-                    variants={fadeUp}
-                    className="mt-5 text-fluid-h2 font-bold text-[#1C1C1C]"
-                  >
-                    What We <span className="text-[#bf1e2e]">Do</span>
+                    What We <span className="text-[color:var(--accent)]">Do</span>
                   </motion.h1>
                    <motion.span
                     variants={fadeUp}
-                    className="block h-[3px] w-14 bg-[#bf1e2e] mt-4 mb-4"
+                    className="block h-[3px] w-14 bg-[color:var(--accent)] mt-4 mb-4"
                   />
                   
 
@@ -126,7 +144,7 @@ const ServiceDetail = () => {
                     categoryCols === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"
                   }`}
                   variants={stagger(0.08)}
-                  {...revealOnMount}
+                  {...revealOnce}
                 >
                   {service.detail.whatWeDo.categories.map((category, index) => (
                     <motion.div
@@ -142,7 +160,7 @@ const ServiceDetail = () => {
                                       group-hover:scale-110 transition-transform duration-500">
                         <ServiceIconMark
                           icon={category.icon}
-                          className="w-10 h-10 sm:w-11 sm:h-11 object-contain text-[#bf1e2e]"
+                          className="w-10 h-10 object-contain text-[color:var(--accent)]"
                         />
                       </div>
                       <div>
@@ -150,7 +168,7 @@ const ServiceDetail = () => {
                           {category.title}
                         </h2>
                         {category.description && (
-                          <p className="text-gray-500 text-[clamp(0.75rem,0.35vw+0.25vh,0.875rem)] leading-[1.5] mb-3">
+                          <p className="text-gray-500 text-fluid-body mb-3">
                             {category.description}
                           </p>
                         )}
@@ -158,10 +176,10 @@ const ServiceDetail = () => {
                           {category.items.map((item) => (
                             <li
                               key={item}
-                              className="flex gap-2 text-gray-600 text-[clamp(0.75rem,0.35vw+0.25vh,0.875rem)] leading-[1.45]"
+                              className="flex gap-2 text-gray-600 text-fluid-body leading-snug"
                             >
                               <span
-                                className="mt-[7px] w-1 h-1 rounded-full bg-[#bf1e2e] flex-shrink-0"
+                                className="mt-[7px] w-1 h-1 rounded-full bg-[color:var(--accent)] flex-shrink-0"
                                 aria-hidden
                               />
                               {item}
@@ -181,21 +199,21 @@ const ServiceDetail = () => {
               <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
                 <motion.div
                   variants={fadeUp}
-                  {...revealOnMount}
+                  {...revealOnce}
                   className="relative rounded-3xl overflow-hidden
                              bg-gradient-to-br from-[#232323] to-[#111111] p-6 sm:p-8 lg:p-9"
                 >
                   <span
-                    className="pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-[#bf1e2e]/25 blur-3xl"
+                    className="pointer-events-none absolute -top-24 -right-16 h-56 w-56 rounded-full bg-[color:var(--accent-25)] blur-3xl"
                     aria-hidden
                   />
                   {/* Label sits on top so the items get the full width and each
                       one stays on a single line */}
                   <div className="relative">
                     <div className="flex items-center gap-4 mb-6 sm:mb-7">
-                      <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center flex-shrink-0">
+                      <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center flex-shrink-0">
                         <Settings
-                          className="w-6 h-6 text-[#bf1e2e]"
+                          className="w-7 h-7 text-[color:var(--accent)]"
                           strokeWidth={1.5}
                         />
                       </div>
@@ -211,12 +229,12 @@ const ServiceDetail = () => {
                       {service.detail.whatWeDo.capability.map((item, index) => (
                         <li
                           key={item}
-                          className="flex items-center gap-2.5 border-l border-[#bf1e2e]/50 pl-4 min-h-[2.5rem]"
+                          className="flex items-center gap-2.5 border-l border-[color:var(--accent-50)] pl-4 min-h-[2.5rem]"
                         >
-                          <span className="text-[#bf1e2e] font-bold text-[11px] tracking-wider flex-shrink-0">
+                          <span className="text-[color:var(--accent)] font-bold text-xs tracking-wider flex-shrink-0">
                             {String(index + 1).padStart(2, "0")}
                           </span>
-                          <span className="text-gray-300 text-[11px] sm:text-xs lg:text-[11.5px] xl:text-xs leading-tight">
+                          <span className="text-gray-300 text-fluid-body leading-snug">
                             {item}
                           </span>
                         </li>
@@ -244,7 +262,7 @@ const ServiceDetail = () => {
                 aria-hidden
               />
               <div
-                className="absolute top-0 left-1/4 w-[34rem] h-[22rem] rounded-full bg-[#bf1e2e]/20 blur-[140px] pointer-events-none"
+                className="absolute top-0 left-1/4 w-[34rem] h-[22rem] rounded-full bg-[color:var(--accent-20)] blur-[140px] pointer-events-none"
                 aria-hidden
               />
 
@@ -253,28 +271,19 @@ const ServiceDetail = () => {
                   <motion.div
                     className="lg:col-span-5"
                     variants={stagger(0.1)}
-                    {...revealOnMount}
+                    {...revealOnce}
                   >
                     <div className="lg:sticky lg:top-28">
-                      <motion.span
-                        variants={fadeUp}
-                        className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5
-                                   text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-gray-300 backdrop-blur-sm"
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                        Our Process
-                      </motion.span>
-
                       <motion.h2
                         variants={fadeUp}
-                        className="mt-5 text-fluid-h2 font-bold"
+                        className="text-fluid-h2 font-bold"
                       >
-                        How We  <span className="text-[#bf1e2e]">Work</span>
+                        How We  <span className="text-[color:var(--accent)]">Work</span>
                       </motion.h2>
 
                       <motion.span
                         variants={fadeUp}
-                        className="block h-[3px] w-16 bg-[#bf1e2e] mt-5 mb-6"
+                        className="block h-[3px] w-16 bg-[color:var(--accent)] mt-5 mb-6"
                       />
 
                       {service.detail.howWeWork.intro.map((paragraph) => (
@@ -312,7 +321,7 @@ const ServiceDetail = () => {
                   <motion.div
                     className="lg:col-span-7"
                     variants={stagger(0.12)}
-                    {...revealOnMount}
+                    {...revealOnce}
                   >
                     {service.detail.howWeWork.points && (
                     <ul className="divide-y divide-white/10">
@@ -323,26 +332,26 @@ const ServiceDetail = () => {
                           className="group relative py-6 sm:py-8 first:pt-0 last:pb-0"
                         >
                           <span
-                            className="absolute left-0 top-6 bottom-6 w-[3px] rounded-full bg-[#bf1e2e]
+                            className="absolute left-0 top-6 bottom-6 w-[3px] rounded-full bg-[color:var(--accent)]
                                        origin-top scale-y-0 group-hover:scale-y-100
                                        transition-transform duration-500"
                             aria-hidden
                           />
                           <div className="flex gap-5 sm:gap-7 transition-transform duration-500 group-hover:translate-x-4">
                             <span
-                              className="flex h-12 w-12 sm:h-14 sm:w-14 flex-shrink-0 items-center justify-center
+                              className="flex h-14 w-14 flex-shrink-0 items-center justify-center
                                          rounded-2xl border border-white/10 bg-white/[0.07]
-                                         group-hover:border-[#bf1e2e]/50 group-hover:bg-[#bf1e2e]/15
+                                         group-hover:border-[color:var(--accent-50)] group-hover:bg-[color:var(--accent-15)]
                                          transition-colors duration-500"
                               aria-hidden
                             >
                               <ServiceIconMark
                                 icon={point.icon}
-                                className="h-6 w-6 sm:h-7 sm:w-7 object-contain text-[#bf1e2e]"
+                                className="h-7 w-7 object-contain text-[color:var(--accent)]"
                               />
                             </span>
                             <div>
-                              <h3 className="text-fluid-h3 font-bold mb-2.5 group-hover:text-[#bf1e2e] transition-colors duration-500">
+                              <h3 className="text-fluid-h3 font-bold mb-2.5 group-hover:text-[color:var(--accent)] transition-colors duration-500">
                                 {point.title}
                               </h3>
                               <p className="text-gray-400 text-fluid-body">
@@ -373,7 +382,7 @@ const ServiceDetail = () => {
                               className="group relative py-4 sm:py-5 first:pt-0 last:pb-0"
                             >
                               <span
-                                className="absolute left-0 top-4 bottom-4 w-[3px] rounded-full bg-[#bf1e2e]
+                                className="absolute left-0 top-4 bottom-4 w-[3px] rounded-full bg-[color:var(--accent)]
                                            origin-top scale-y-0 group-hover:scale-y-100
                                            transition-transform duration-500"
                                 aria-hidden
@@ -387,11 +396,11 @@ const ServiceDetail = () => {
                                   {item.icon ? (
                                     <ServiceIconMark
                                       icon={item.icon}
-                                      className="h-9 w-9 object-contain text-[#bf1e2e]"
+                                      className="h-10 w-10 object-contain text-[color:var(--accent)]"
                                     />
                                   ) : (
                                     <Check
-                                      className="h-5 w-5 text-[#bf1e2e]"
+                                      className="h-5 w-5 text-[color:var(--accent)]"
                                       strokeWidth={2}
                                     />
                                   )}
@@ -424,14 +433,10 @@ const ServiceDetail = () => {
                 <motion.div
                   className="max-w-3xl mb-12 sm:mb-14"
                   variants={fadeUp}
-                  {...revealOnMount}
+                  {...revealOnce}
                 >
-                  <span className="inline-flex items-center gap-2 rounded-full border border-[#bf1e2e]/20 bg-white/70 px-4 py-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#bf1e2e] backdrop-blur-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                    Outcomes Delivered
-                  </span>
-                  <h2 className="mt-5 text-fluid-h2 font-bold text-[#1C1C1C]">
-                    Project <span className="text-[#bf1e2e]">Impact</span>
+                  <h2 className="text-fluid-h2 font-bold text-[#1C1C1C]">
+                    Project <span className="text-[color:var(--accent)]">Impact</span>
                   </h2>
                 </motion.div>
 
@@ -439,7 +444,7 @@ const ServiceDetail = () => {
                   <motion.div
                     className="max-w-4xl mb-10 sm:mb-12 space-y-4"
                     variants={stagger(0.1)}
-                    {...revealOnMount}
+                    {...revealOnce}
                   >
                     {service.detail.projectImpact.intro.map((paragraph) => (
                       <motion.p
@@ -454,7 +459,7 @@ const ServiceDetail = () => {
                 )}
 
                 {service.detail.projectImpact.benefits && (
-                  <motion.div variants={stagger(0.08)} {...revealOnMount}>
+                  <motion.div variants={stagger(0.08)} {...revealOnce}>
                     <motion.h3
                       variants={fadeUp}
                       className="text-fluid-h3 font-bold text-[#1C1C1C] mb-6"
@@ -468,7 +473,7 @@ const ServiceDetail = () => {
                           <motion.li
                             key={item.text}
                             variants={fadeUp}
-                            className="group flex items-start gap-4 border-t border-[#bf1e2e]/15 pt-4"
+                            className="group flex items-start gap-4 border-t border-[color:var(--accent-15)] pt-4"
                           >
                             <span
                               className="flex flex-shrink-0 items-center justify-center
@@ -478,11 +483,11 @@ const ServiceDetail = () => {
                               {item.icon ? (
                                 <ServiceIconMark
                                   icon={item.icon}
-                                  className="h-8 w-8 object-contain text-[#bf1e2e]"
+                                  className="h-10 w-10 object-contain text-[color:var(--accent)]"
                                 />
                               ) : (
                                 <Check
-                                  className="h-5 w-5 text-[#bf1e2e]"
+                                  className="h-5 w-5 text-[color:var(--accent)]"
                                   strokeWidth={2.5}
                                 />
                               )}
@@ -501,15 +506,15 @@ const ServiceDetail = () => {
                 <motion.div
                   className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
                   variants={stagger(0.1)}
-                  {...revealOnMount}
+                  {...revealOnce}
                 >
                   {service.detail.projectImpact.outcomes.map((impact, index) => (
                     <motion.div
                       key={impact.title}
                       variants={fadeUp}
                       className={`group relative px-0 sm:px-6 lg:px-7 py-8 sm:py-0
-                                  border-t border-[#bf1e2e]/15 sm:border-t-0
-                                  ${index !== 0 ? "sm:border-l sm:border-[#bf1e2e]/15" : ""}
+                                  border-t border-[color:var(--accent-15)] sm:border-t-0
+                                  ${index !== 0 ? "sm:border-l sm:border-[color:var(--accent-15)]" : ""}
                                   ${
                                     // stepped baseline on desktop
                                     ["lg:mt-0", "lg:mt-8", "lg:mt-16", "lg:mt-24"][
@@ -527,7 +532,7 @@ const ServiceDetail = () => {
                       >
                         <ServiceIconMark
                           icon={impact.icon}
-                          className="h-7 w-7 object-contain text-[#bf1e2e]"
+                          className="h-7 w-7 object-contain text-[color:var(--accent)]"
                         />
                       </span>
 
@@ -536,7 +541,7 @@ const ServiceDetail = () => {
                       </h3>
 
                       <span
-                        className="block h-[2px] w-10 bg-[#bf1e2e] mb-4 origin-left
+                        className="block h-[2px] w-10 bg-[color:var(--accent)] mb-4 origin-left
                                    transition-transform duration-500 group-hover:scale-x-[2.4]"
                         aria-hidden
                       />
@@ -557,13 +562,8 @@ const ServiceDetail = () => {
             <section className="py-14 sm:py-18 lg:py-24 bg-white border-t border-gray-100">
               <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
                 <div className="mb-6 sm:mb-8">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-[#bf1e2e]/20 bg-[#fbe5e7] px-4 py-1.5
-                                   text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#bf1e2e]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
-                    Keep Exploring
-                  </span>
-                  <h2 className="mt-5 text-fluid-h2 font-bold text-[#1C1C1C]">
-                    Other <span className="text-[#bf1e2e]">Services</span>
+                  <h2 className="text-fluid-h2 font-bold text-[#1C1C1C]">
+                    Other <span className="text-[color:var(--accent)]">Services</span>
                   </h2>
                 </div>
 
@@ -578,13 +578,13 @@ const ServiceDetail = () => {
                         >
                           {/* Brand sweep from the left */}
                           <span
-                            className="absolute inset-0 bg-[#bf1e2e] origin-left scale-x-0
+                            className="absolute inset-0 bg-[color:var(--accent)] origin-left scale-x-0
                                        transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
                                        group-hover:scale-x-100"
                             aria-hidden
                           />
 
-                          <span className="relative text-xs sm:text-sm font-bold text-[#bf1e2e] group-hover:text-white/70 transition-colors duration-300 w-7 flex-shrink-0">
+                          <span className="relative text-xs sm:text-sm font-bold text-[color:var(--accent)] group-hover:text-white/70 transition-colors duration-300 w-7 flex-shrink-0">
                             {String(index + 1).padStart(2, "0")}
                           </span>
 
@@ -612,7 +612,7 @@ const ServiceDetail = () => {
 
                           <span
                             className="relative flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full
-                                       border border-gray-200 text-[#bf1e2e]
+                                       border border-gray-200 text-[color:var(--accent)]
                                        group-hover:bg-white group-hover:border-white
                                        group-hover:translate-x-1 transition-all duration-500"
                           >
@@ -633,7 +633,7 @@ const ServiceDetail = () => {
           <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
             <motion.div
               variants={fadeUp}
-              {...revealOnMount}
+              {...revealOnce}
               className="relative overflow-hidden rounded-[1.75rem] sm:rounded-[2rem] bg-[#0B0B0B]"
             >
               {/* Client photograph as the backdrop */}
@@ -650,7 +650,7 @@ const ServiceDetail = () => {
                 aria-hidden
               />
               <span
-                className="absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-[#bf1e2e]/35 blur-[110px]"
+                className="absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-[color:var(--accent-35)] blur-[110px]"
                 aria-hidden
               />
 
@@ -658,13 +658,13 @@ const ServiceDetail = () => {
                 <div className="max-w-xl">
                   <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5
                                    text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-gray-200 backdrop-blur-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#bf1e2e]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--accent)]" />
                     Let&apos;s Work Together
                   </span>
 
                   <h2 className="mt-5 text-fluid-h2 font-bold text-white">
                     Have a project in{" "}
-                    <span className="text-[#bf1e2e]">mind?</span>
+                    <span className="text-[color:var(--accent)]">mind?</span>
                   </h2>
 
                   <p className="mt-4 text-gray-300 text-fluid-body max-w-lg">
@@ -677,9 +677,9 @@ const ServiceDetail = () => {
                       whileHover={{ y: -2 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => navigate("/#contact")}
-                      className="inline-flex items-center justify-center gap-2 bg-[#bf1e2e] hover:bg-[#961a27]
+                      className="inline-flex items-center justify-center gap-2 bg-[color:var(--accent)] hover:bg-[color:var(--accent-dark)]
                                  text-white font-semibold rounded-xl px-7 sm:px-8 h-12 text-sm sm:text-base
-                                 shadow-lg shadow-[#bf1e2e]/25 transition-colors duration-300"
+                                 shadow-lg shadow-[color:var(--accent-25)] transition-colors duration-300"
                     >
                       Contact Us
                       <ArrowRight className="w-4 h-4" />
@@ -718,13 +718,13 @@ const ComingSoonState = ({
 }) => (
   <section className="min-h-[70dvh] flex items-center py-16 sm:py-24 bg-white">
     <div className="w-full max-w-3xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
-      <p className="text-[#bf1e2e] font-semibold uppercase tracking-widest text-xs sm:text-sm mb-3">
+      <p className="text-[color:var(--accent)] font-semibold uppercase tracking-widest text-xs sm:text-sm mb-3">
         Service
       </p>
       <h2 className="text-fluid-h2 font-bold text-[#1C1C1C] mb-5">
         {title}
       </h2>
-      <span className="block h-[3px] w-16 bg-[#bf1e2e] mx-auto mb-7" />
+      <span className="block h-[3px] w-16 bg-[color:var(--accent)] mx-auto mb-7" />
       <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-8">
         {description}
       </p>
@@ -747,7 +747,7 @@ const NotFoundState = () => (
       </p>
       <Link
         to="/#services"
-        className="inline-flex items-center gap-2 text-[#bf1e2e] font-semibold text-sm hover:underline"
+        className="inline-flex items-center gap-2 text-[color:var(--accent)] font-semibold text-sm hover:underline"
       >
         View all services
         <ArrowRight className="w-4 h-4" />

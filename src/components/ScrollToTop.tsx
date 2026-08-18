@@ -73,7 +73,7 @@ const ScrollToTop = () => {
             cx="28"
             cy="28"
             r={radius}
-            stroke="#bf1e2e"
+            stroke="var(--accent)"
             strokeWidth="3"
             fill="transparent"
             strokeDasharray={circumference}

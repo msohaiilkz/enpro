@@ -41,18 +41,10 @@ const FeaturedServices = () => {
           variants={stagger(0.12)}
           {...revealOnce}
         >
-          <div className="text-center lg:text-left">
-            <motion.span
-              variants={fadeUp}
-              className="inline-flex items-center gap-3 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.25em] text-[#bf1e2e]"
-            >
-              <span className="h-px w-8 bg-[#bf1e2e]" />
-              What We Offer
-            </motion.span>
-
+          <div className="text-center">
             <motion.h2
               variants={fadeUp}
-              className="mt-3 sm:mt-4 text-fluid-h2 font-bold text-[#1C1C1C]"
+              className="text-fluid-h2 font-bold text-[#1C1C1C]"
             >
               Our <span className="text-[#bf1e2e]">Services</span>
             </motion.h2>

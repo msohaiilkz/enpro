@@ -63,6 +63,7 @@ import iconWater from "@/assets/icons/cat-water.png";
 import iconAssessment from "@/assets/icons/cat-assessment.png";
 
 // Environmental & Social Advisory - the client's own green artwork
+import bannerEnvironmental from "@/assets/banner-environmental.jpg";
 import iconEnvSustainable from "@/assets/icons/green-sustainable.png";
 import iconEnvSafeguards from "@/assets/icons/green-safeguards.png";
 import iconEnvStakeholder from "@/assets/icons/green-stakeholder.png";
@@ -131,6 +132,10 @@ export interface Service {
   image: string;
   /** Overrides the shared banner when the client supplied one for this service */
   banner?: string;
+  /** Accent colour for the detail page; defaults to the brand red */
+  accent?: string;
+  /** Darker accent used on hover states */
+  accentDark?: string;
   detail?: ServiceDetail;
 }
 
@@ -708,6 +713,10 @@ export const SERVICES: Service[] = [
     description:
       "Supporting responsible infrastructure through environmental stewardship, social inclusion, and international safeguard compliance.",
     image: imgEnvironmental,
+    banner: bannerEnvironmental,
+    // the green of the client's icon set
+    accent: "#4A7C2C",
+    accentDark: "#3A6323",
     detail: {
       tagline:
         "Today's infrastructure projects demand more than engineering excellence. They require environmental stewardship, social responsibility, meaningful stakeholder engagement, and compliance with national and international development requirements. Enpro strengthens multidisciplinary project teams through integrated Environmental & Social Advisory services, supporting sustainable, compliant, and resilient infrastructure delivery.",

@@ -1,5 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 interface Crumb {
   label: string;
@@ -51,15 +52,21 @@ const PageBanner = ({
           )}
           <div className="absolute inset-0 flex items-center">
             <div className="w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
-              <h1
+              <motion.h1
+                initial={{ opacity: 0, x: -36 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className={`text-fluid-h2 font-bold max-w-md sm:max-w-lg ${
                   titleTone === "dark" ? "text-[#1C1C1C]" : "text-white"
                 }`}
               >
                 {title}
-              </h1>
-              <span
-                className="mt-4 block h-[3px] w-14"
+              </motion.h1>
+              <motion.span
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ delay: 0.35, duration: 0.5, ease: "easeOut" }}
+                className="mt-4 block h-[3px] w-14 origin-left"
                 style={{ backgroundColor: accent }}
                 aria-hidden
               />
@@ -82,12 +89,12 @@ const PageBanner = ({
             {crumb.to ? (
               <Link
                 to={crumb.to}
-                className="hover:text-[#bf1e2e] transition-colors"
+                className="hover:text-[color:var(--accent)] transition-colors"
               >
                 {crumb.label}
               </Link>
             ) : (
-              <span className="text-[#bf1e2e] font-medium">{crumb.label}</span>
+              <span className="text-[color:var(--accent)] font-medium">{crumb.label}</span>
             )}
           </li>
         ))}
