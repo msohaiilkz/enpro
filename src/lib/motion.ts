@@ -58,9 +58,11 @@ export const stagger = (staggerChildren = 0.15, delayChildren = 0): Variants => 
 export const revealOnce = {
   initial: "hidden" as const,
   whileInView: "show" as const,
-  // fires once ~15% of the block is inside the viewport, so the animation
-  // plays where the reader can actually see it
-  viewport: { once: true, amount: 0.15, margin: "0px 0px -40px 0px" },
+  // "some" = the block counts as visible while ANY part of it is on screen.
+  // A ratio like 0.15 breaks on tall blocks (their visible slice can never
+  // reach 15%), which re-hid content that was still on screen. Replays each
+  // time the block fully leaves and re-enters the viewport.
+  viewport: { once: false, amount: "some" as const, margin: "0px 0px -40px 0px" },
 };
 
 /**

@@ -65,10 +65,16 @@ const ServiceDetail = () => {
     "--accent-35": accent + "59",
     "--accent-40": accent + "66",
     "--accent-50": accent + "80",
+    // The logo artwork carries the brand red baked into the PNG; on a themed
+    // page a hue shift turns just those red strokes green (black/white stay).
+    ...(service?.accent ? { "--logo-filter": "hue-rotate(105deg) saturate(0.8)" } : {}),
   } as React.CSSProperties;
 
   return (
+    // keyed by slug: switching between services remounts the page cleanly,
+    // so every section resets and animates in rather than carrying stale state
     <div
+      key={slug}
       className="min-h-screen bg-white w-full overflow-x-hidden"
       style={themeVars}
     >

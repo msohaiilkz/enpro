@@ -34,12 +34,12 @@ export default {
           { lineHeight: "1.35" },
         ],
         "fluid-lead": [
-          "clamp(0.875rem, 0.7vw + 0.4vh, 1.125rem)",
-          { lineHeight: "1.65" },
+          "clamp(1rem, 0.8vw + 0.45vh, 1.25rem)",
+          { lineHeight: "1.7" },
         ],
         "fluid-body": [
-          "clamp(0.8125rem, 0.5vw + 0.3vh, 0.9375rem)",
-          { lineHeight: "1.7" },
+          "clamp(0.9375rem, 0.55vw + 0.3vh, 1rem)",
+          { lineHeight: "1.75" },
         ],
       },
       fontFamily: {

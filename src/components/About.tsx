@@ -99,7 +99,7 @@ const About = () => {
         </div>
 
         {/* Decorative Shape - kept clear of the floating back-to-top button */}
-        <div className="absolute bottom-24 right-32 hidden lg:block opacity-80 pointer-events-none">
+        <div className="absolute bottom-8 right-44 hidden xl:block opacity-60 pointer-events-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="90"

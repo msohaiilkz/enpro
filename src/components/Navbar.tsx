@@ -34,7 +34,7 @@ const SidebarNav = () => {
 
   // TODO: replace the placeholder hrefs once the client shares the live profiles
   const socialLinks = [
-    { icon: LinkedInIcon, href: "#", label: "LinkedIn" },
+    { icon: LinkedInIcon, href: "https://www.linkedin.com/company/enproconsultants", label: "LinkedIn" },
     { icon: FacebookIcon, href: "#", label: "Facebook" },
     { icon: WhatsAppIcon, href: "#", label: "WhatsApp" },
   ];

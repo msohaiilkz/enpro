@@ -14,24 +14,24 @@ const Index = () => {
   useEffect(() => {
     // Check if there is a hash in the URL (e.g., #about, #contact)
     if (window.location.hash) {
-      const id = window.location.hash.substring(1); // Get the ID without the '#'
+      const id = window.location.hash.substring(1);
 
-      // Use a brief timeout to ensure all components have rendered and measured their dimensions
-      const timer = setTimeout(() => {
-        const element = document.getElementById(id);
-        if (element) {
-          // Use scrollIntoView with smooth behavior
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-        // Clear the hash from the URL after scrolling to prevent re-scrolling on subsequent actions
-        window.history.replaceState(
-          {},
-          document.title,
-          window.location.pathname,
-        );
-      }, 100); // 100ms is usually enough to allow rendering
-
-      return () => clearTimeout(timer); // Cleanup
+      // Jump straight to the section: two animation frames give the layout a
+      // chance to settle, and "auto" lands there instantly with no visible
+      // scroll from the top of the page.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: "auto", block: "start" });
+          }
+          window.history.replaceState(
+            {},
+            document.title,
+            window.location.pathname,
+          );
+        });
+      });
     }
   }, []); // Run only once on mount
 

@@ -15,7 +15,7 @@ const Footer = () => {
 
   // TODO: replace the placeholder hrefs once the client shares the live profiles
   const socialLinks = [
-    { icon: LinkedInIcon, href: "#", label: "LinkedIn" },
+    { icon: LinkedInIcon, href: "https://www.linkedin.com/company/enproconsultants", label: "LinkedIn" },
     { icon: FacebookIcon, href: "#", label: "Facebook" },
     { icon: WhatsAppIcon, href: "#", label: "WhatsApp" },
   ];
@@ -36,7 +36,7 @@ const Footer = () => {
     }
     if (!link.id) return;
     if (isDetail) {
-      window.location.assign(`/#${link.id}`);
+      navigate(`/#${link.id}`);
     } else {
       const element = document.getElementById(link.id);
       if (element) element.scrollIntoView({ behavior: "smooth" });
@@ -59,6 +59,7 @@ const Footer = () => {
               <img
                 src={logo}
                 alt="Enpro Consultants"
+                style={{ filter: "var(--logo-filter, none)" }}
                 className="h-10 sm:h-12 w-auto object-contain"
               />
             </div>
