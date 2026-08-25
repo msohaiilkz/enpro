@@ -599,7 +599,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "construction-support-services",
-    title: "Construction Support",
+    title: "Construction Support Services",
     description:
       "Providing technical guidance, shop drawing reviews, and engineering support throughout successful project execution.",
     image: imgConstruction,

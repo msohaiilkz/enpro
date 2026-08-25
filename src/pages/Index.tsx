@@ -8,7 +8,15 @@ import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 
 import React, { useLayoutEffect } from "react";
+import { settleArrival } from "@/lib/motion";
+
 const Index = () => {
+  // Arriving on /#section from another page: mount every reveal already
+  // settled, so the target section does not slide in after the instant jump.
+  // Runs during render, before the children mount and read their `initial`.
+  if (typeof window !== "undefined" && window.location.hash) {
+    settleArrival();
+  }
   // Landing on /#section: jump BEFORE the browser paints the first frame, so
   // the visitor never glimpses the hero first (that flash read as a "double
   // jerk"). useLayoutEffect runs after layout but before paint - the page
