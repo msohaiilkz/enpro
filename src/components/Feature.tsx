@@ -164,8 +164,9 @@ const FeaturedServices = () => {
       </div>
 
       {/* Scroll Indicator — in normal flow under the button, so it can never
-          hang below the fold and get clipped on shorter screens */}
-      <div className="relative flex justify-center mt-6 sm:mt-8">
+          hang below the fold and get clipped on shorter screens; extra-large
+          screens have spare height, so there it anchors to the section bottom */}
+      <div className="relative flex justify-center mt-6 sm:mt-8 2xl:mt-0 2xl:absolute 2xl:bottom-8 2xl:inset-x-0">
         <button
           onClick={() => {
             const element = document.getElementById("contact");
