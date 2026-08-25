@@ -148,12 +148,9 @@ export const SERVICES: Service[] = [
     image: imgStructural,
     detail: {
       tagline:
-        "We design and engineer safe, efficient and resilient structural solutions across a wide range of structures and structural systems.",
+        "We design and engineer safe, efficient and resilient structural solutions across a wide range of structures and structural systems, covering their full lifecycle from new-build design to assessment, strengthening and rehabilitation.",
       photo: photoStructural,
       whatWeDo: {
-        intro: [
-          "We engineer structures across their full lifecycle from new-build design to assessment, strengthening and rehabilitation.",
-        ],
         categories: [
           {
             number: "01",

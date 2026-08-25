@@ -17,7 +17,7 @@ const FeaturedServices = () => {
 
   return (
     <section
-      className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-8 sm:pt-10 lg:pt-12 pb-10 sm:pb-12
+      className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-8 sm:pt-10 lg:pt-12 pb-10 sm:pb-12 lg:pb-28
                  bg-gradient-to-b from-[#fbe5e7] via-white to-white overflow-hidden"
     >
       {/* Diagonal hairlines - a different texture to the section above */}
@@ -163,10 +163,10 @@ const FeaturedServices = () => {
         )}
       </div>
 
-      {/* Scroll Indicator — in normal flow under the button, so it can never
-          hang below the fold and get clipped on shorter screens; extra-large
-          screens have spare height, so there it anchors to the section bottom */}
-      <div className="relative flex justify-center mt-6 sm:mt-8 2xl:mt-0 2xl:absolute 2xl:bottom-8 2xl:inset-x-0">
+      {/* Scroll Indicator — desktops (large and extra-large) anchor it to the
+          section bottom; the lg:pb-28 above reserves that strip so it can never
+          sit on the Show More/Less button. Phones keep it in normal flow. */}
+      <div className="relative flex justify-center mt-6 sm:mt-8 lg:mt-0 lg:absolute lg:bottom-8 lg:inset-x-0">
         <button
           onClick={() => {
             const element = document.getElementById("contact");
