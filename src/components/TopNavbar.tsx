@@ -95,10 +95,11 @@ const TopNavbar = () => {
             {NAV_LINKS.map((link) =>
               link.label === "Services" ? (
                 <div key={link.label} className="relative group">
+                  {/* Client direction: the heading itself is not a link — only
+                      the dropdown items navigate */}
                   <button
                     type="button"
-                    onClick={() => handleNav(link)}
-                    className="relative flex items-center gap-1.5 px-4 py-2 text-[14px] font-medium text-gray-300 hover:text-white transition-colors duration-200 whitespace-nowrap"
+                    className="relative flex items-center gap-1.5 px-4 py-2 text-[14px] font-medium text-gray-300 hover:text-white transition-colors duration-200 whitespace-nowrap cursor-default"
                   >
                     {link.label}
                     <ChevronDown

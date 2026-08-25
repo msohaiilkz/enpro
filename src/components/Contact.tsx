@@ -118,10 +118,10 @@ const Contact = () => {
                     Design Review &amp; Value Engineering
                   </option>
                   <option value="construction-support">
-                    Construction Support Services
+                    Construction Support
                   </option>
                   <option value="project-management">
-                    Project &amp; Contract Management Services
+                    Project &amp; Contract Management
                   </option>
                   <option value="environmental-social">
                     Environmental &amp; Social Advisory

@@ -53,7 +53,12 @@ the detail pages, the footer and the contact form's dropdown never fall out of s
   is clipped by mobile browser chrome
 - **Fluid typography** — headings and body copy scale with both viewport width *and* height via
   `clamp()`, which keeps wide-but-short laptop screens from pushing content past the fold
-- **Scroll-reveal motion** — sections, cards and list items animate in once as they enter view
+- **Scroll-reveal motion** — sections, cards and list items animate in as they enter view,
+  and replay on every pass so the page feels alive on the way back up
+- **Services everywhere** — a hover dropdown on the top bar and an accordion in the
+  off-canvas menu list all six service pages; every list is generated from the same data
+- **Per-service theming** — the Environmental & Social Advisory page runs a green accent
+  end to end, including a hue-shifted logo, driven by CSS custom properties
 - **Hero slideshow** — cross-fading background with a slow zoom, paused for
   `prefers-reduced-motion`
 - **Frosted navigation** — the detail-page bar fixes to the top and turns to glass on scroll
@@ -147,9 +152,9 @@ one entry there, and the rest of the site picks it up automatically.
 
 ## Status
 
-The landing page, the About Us page and the first service detail page are complete. The
-remaining service detail pages render a "coming soon" state until their content is supplied,
-and the contact form is awaiting a delivery endpoint.
+The landing page, the About Us page and all six service detail pages are complete and
+follow the client's approved documents. The contact form UI is finished and will be wired
+to a hosting-independent delivery endpoint next, sending submissions to the client's inbox.
 
 ---
 

@@ -7,31 +7,27 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 
-import React, { useEffect } from "react";
+import React, { useLayoutEffect } from "react";
 const Index = () => {
-  // CRITICAL FIX: Effect to manually handle scrolling to the hash on load
-  // This logic overrides the browser's default jump, preventing the scroll-to-hero-then-target issue.
-  useEffect(() => {
-    // Check if there is a hash in the URL (e.g., #about, #contact)
+  // Landing on /#section: jump BEFORE the browser paints the first frame, so
+  // the visitor never glimpses the hero first (that flash read as a "double
+  // jerk"). useLayoutEffect runs after layout but before paint - the page
+  // simply appears already sitting on the target section.
+  useLayoutEffect(() => {
+    // The detail pages scroll the window; drop any leftover offset first so it
+    // cannot combine with the section jump below into a visible double move.
+    window.scrollTo(0, 0);
     if (window.location.hash) {
       const id = window.location.hash.substring(1);
-
-      // Jump straight to the section: two animation frames give the layout a
-      // chance to settle, and "auto" lands there instantly with no visible
-      // scroll from the top of the page.
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          const element = document.getElementById(id);
-          if (element) {
-            element.scrollIntoView({ behavior: "auto", block: "start" });
-          }
-          window.history.replaceState(
-            {},
-            document.title,
-            window.location.pathname,
-          );
-        });
-      });
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "auto", block: "start" });
+      }
+      window.history.replaceState(
+        {},
+        document.title,
+        window.location.pathname,
+      );
     }
   }, []); // Run only once on mount
 

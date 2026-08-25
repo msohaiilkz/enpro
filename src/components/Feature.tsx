@@ -17,7 +17,7 @@ const FeaturedServices = () => {
 
   return (
     <section
-      className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-8 sm:pt-10 lg:pt-12 pb-36 sm:pb-40
+      className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-8 sm:pt-10 lg:pt-12 pb-10 sm:pb-12
                  bg-gradient-to-b from-[#fbe5e7] via-white to-white overflow-hidden"
     >
       {/* Diagonal hairlines - a different texture to the section above */}
@@ -163,8 +163,9 @@ const FeaturedServices = () => {
         )}
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-12 inset-x-0 flex justify-center">
+      {/* Scroll Indicator — in normal flow under the button, so it can never
+          hang below the fold and get clipped on shorter screens */}
+      <div className="relative flex justify-center mt-6 sm:mt-8">
         <button
           onClick={() => {
             const element = document.getElementById("contact");

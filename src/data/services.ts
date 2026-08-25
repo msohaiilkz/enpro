@@ -416,7 +416,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "project-contract-management",
-    title: "Project & Contract Management Services",
+    title: "Project & Contract Management",
     description:
       "Managing project delivery through effective controls, contract administration, coordination, and governance practices.",
     image: imgProject,
@@ -599,7 +599,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "construction-support-services",
-    title: "Construction Support Services",
+    title: "Construction Support",
     description:
       "Providing technical guidance, shop drawing reviews, and engineering support throughout successful project execution.",
     image: imgConstruction,
