@@ -3,8 +3,22 @@ import { motion } from "framer-motion";
 import { fadeUp, scaleIn, stagger, revealOnce } from "@/lib/motion";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
-import { User, Mail, MessageSquare, ChevronDown } from "lucide-react";
+import { User, Mail, MessageSquare, ChevronDown, Loader2 } from "lucide-react";
 import contactImage from "@/assets/contact-enpro.jpeg";
+
+// Web3Forms delivers submissions to web@enproconsultants.com. The key is tied
+// to that inbox and is meant to live in frontend code (their design).
+const WEB3FORMS_ACCESS_KEY = "093ddb1b-ab2b-4447-8fec-466ba73cd44f";
+
+/** Human-readable service names for the email, keyed by the option values. */
+const SERVICE_LABELS: Record<string, string> = {
+  "structural-design": "Structural Design & Engineering",
+  "design-review": "Design Review & Value Engineering",
+  "construction-support": "Construction Support Services",
+  "project-management": "Project & Contract Management",
+  "environmental-social": "Environmental & Social Advisory",
+  "digital-bim": "Digital Engineering & BIM",
+};
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -13,8 +27,9 @@ const Contact = () => {
     service: "",
     message: "",
   });
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !formData.message) {
@@ -26,12 +41,48 @@ const Contact = () => {
       return;
     }
 
-    toast({
-      title: "Success!",
-      description: "Message sent successfully! We'll contact you soon.",
-    });
+    // Honeypot: real visitors never see or fill this field
+    const trap = (e.target as HTMLFormElement).querySelector<HTMLInputElement>(
+      "input[name='company_website']",
+    );
+    if (trap?.value) return;
 
-    setFormData({ name: "", email: "", service: "", message: "" });
+    setSending(true);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New inquiry from ${formData.name} — enproconsultants.com`,
+          from_name: "Enpro Consultants Website",
+          name: formData.name,
+          email: formData.email,
+          service: SERVICE_LABELS[formData.service] ?? "Not specified",
+          message: formData.message,
+        }),
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        toast({
+          title: "Message sent!",
+          description: "Thank you for reaching out. We'll get back to you soon.",
+        });
+        setFormData({ name: "", email: "", service: "", message: "" });
+      } else {
+        throw new Error(result.message);
+      }
+    } catch {
+      toast({
+        title: "Something went wrong",
+        description:
+          "Your message could not be sent. Please email us directly at info@enproconsultants.com.",
+        variant: "destructive",
+      });
+    } finally {
+      setSending(false);
+    }
   };
 
   const handleChange = (
@@ -67,6 +118,16 @@ const Contact = () => {
 
             <motion.form
               variants={fadeUp} onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+              {/* Honeypot — hidden from people, bots fill it and get dropped */}
+              <input
+                type="text"
+                name="company_website"
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+                aria-hidden="true"
+              />
+
               {/* Name */}
               <div className="relative group">
                 <input
@@ -158,9 +219,17 @@ const Contact = () => {
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full bg-[#bf1e2e] hover:bg-[#961a27] text-white text-sm sm:text-base font-bold rounded-xl py-3 sm:py-4 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+                disabled={sending}
+                className="w-full bg-[#bf1e2e] hover:bg-[#961a27] text-white text-sm sm:text-base font-bold rounded-xl py-3 sm:py-4 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-70 disabled:hover:translate-y-0"
               >
-                Submit Message
+                {sending ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  "Submit Message"
+                )}
               </Button>
             </motion.form>
           </motion.div>
