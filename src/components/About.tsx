@@ -143,8 +143,8 @@ const About = () => {
         </div>
       </div>
 
-      {/* Scroll Indicator - Section Centered */}
-      <div className="absolute bottom-8 inset-x-0 flex justify-center z-20">
+      {/* Scroll Indicator - Section Centered; hidden on phones */}
+      <div className="absolute bottom-8 inset-x-0 hidden sm:flex justify-center z-20">
         <button 
           onClick={() => {
             const element = document.getElementById("why-enpro");

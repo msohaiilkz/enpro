@@ -109,7 +109,7 @@ const Hero = () => {
 
       {/* Scroll Indicator - Section Centered */}
       <motion.div
-        className="absolute bottom-5 sm:bottom-8 inset-x-0 flex justify-center z-20"
+        className="absolute bottom-5 sm:bottom-8 inset-x-0 hidden sm:flex justify-center z-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.1, duration: 0.6 }}

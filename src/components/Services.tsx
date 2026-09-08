@@ -166,8 +166,8 @@ const Services = () => {
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 inset-x-0 flex justify-center z-20">
+      {/* Scroll Indicator; hidden on phones */}
+      <div className="absolute bottom-8 inset-x-0 hidden sm:flex justify-center z-20">
         <button
           onClick={scrollToNext}
           className="animate-bounce cursor-pointer group"

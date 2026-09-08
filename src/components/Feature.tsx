@@ -166,7 +166,7 @@ const FeaturedServices = () => {
       {/* Scroll Indicator — desktops (large and extra-large) anchor it to the
           section bottom; the lg:pb-28 above reserves that strip so it can never
           sit on the Show More/Less button. Phones keep it in normal flow. */}
-      <div className="relative flex justify-center mt-6 sm:mt-8 lg:mt-0 lg:absolute lg:bottom-8 lg:inset-x-0">
+      <div className="relative hidden sm:flex justify-center sm:mt-8 lg:mt-0 lg:absolute lg:bottom-8 lg:inset-x-0">
         <button
           onClick={() => {
             const element = document.getElementById("contact");
