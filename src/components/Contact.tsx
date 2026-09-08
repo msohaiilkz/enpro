@@ -6,9 +6,9 @@ import { toast } from "@/hooks/use-toast";
 import { User, Mail, MessageSquare, ChevronDown, Loader2 } from "lucide-react";
 import contactImage from "@/assets/contact-enpro.jpeg";
 
-// Web3Forms delivers submissions to web@enproconsultants.com. The key is tied
-// to that inbox and is meant to live in frontend code (their design).
-const WEB3FORMS_ACCESS_KEY = "093ddb1b-ab2b-4447-8fec-466ba73cd44f";
+// Web3Forms delivers submissions to info@enproconsultants.com (the client's
+// own account). The key is public by design and meant for frontend code.
+const WEB3FORMS_ACCESS_KEY = "be2fc849-82d6-43d1-99a3-2761cc90638a";
 
 /** Human-readable service names for the email, keyed by the option values. */
 const SERVICE_LABELS: Record<string, string> = {

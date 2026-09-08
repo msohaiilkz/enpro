@@ -28,7 +28,7 @@ motion throughout.
 | Routing | React Router 6 |
 | UI primitives | shadcn/ui on Radix UI |
 | Icons | lucide-react, plus custom brand SVGs |
-| Forms | React Hook Form + Zod |
+| Forms | React Hook Form + Zod, delivery via Web3Forms |
 | Data fetching | TanStack Query |
 
 ---
@@ -153,8 +153,9 @@ one entry there, and the rest of the site picks it up automatically.
 ## Status
 
 The landing page, the About Us page and all six service detail pages are complete and
-follow the client's approved documents. The contact form UI is finished and will be wired
-to a hosting-independent delivery endpoint next, sending submissions to the client's inbox.
+follow the client's approved documents. The contact form delivers through Web3Forms —
+hosting-independent, spam-protected with a honeypot — straight to the client's inbox,
+and the site ships with its own favicon and share image.
 
 ---
 
